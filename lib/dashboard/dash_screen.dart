@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:stockee/dashboard/gain_lose_component.dart';
+import 'package:stockee/dashboard/watchlist_component.dart';
 
 class DashScreen extends StatefulWidget {
   const DashScreen({Key? key}) : super(key: key);
@@ -13,25 +15,44 @@ class _DashScreenState extends State<DashScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
+        elevation: 0,
+        title: const Text(
           "Dashboard",
-          style: Theme.of(context).textTheme.bodyText1,
+          style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 35,
+              color: Colors.black,
+              letterSpacing: 0.5),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.search),
+              color: Colors.black,
             ),
-            Text(
-              'hi',
-              style: Theme.of(context).textTheme.headline1,
-            ),
-          ],
-        ),
+          )
+        ],
       ),
+      body: OrientationBuilder(builder: (ctx, orientation) {
+        return orientation == Orientation.portrait
+            ? Column(
+                children: <Widget>[
+                  GainLoseComponent(orientation: orientation),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const Expanded(child: WatchlistComponent())
+                ],
+              )
+            : Row(
+                children: <Widget>[
+                  Expanded(child: GainLoseComponent(orientation: orientation)),
+                  const Expanded(child: WatchlistComponent())
+                ],
+              );
+      }),
     );
   }
 }

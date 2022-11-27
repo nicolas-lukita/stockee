@@ -20,6 +20,7 @@ class NewsCard extends StatelessWidget {
               width: 10,
             ),
             const CircleAvatar(
+              backgroundColor: Colors.black54,
               radius: 25,
             ),
             const SizedBox(

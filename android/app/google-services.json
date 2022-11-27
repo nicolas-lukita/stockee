@@ -1,0 +1,54 @@
+{
+	"project_info": {
+		"project_number": "449419668237",
+		"project_id": "stockee-654ee",
+		"storage_bucket": "stockee-654ee.appspot.com"
+	},
+	"client": [
+		{
+			"client_info": {
+				"mobilesdk_app_id": "1:449419668237:android:4ae5226bcf10ddba229e44",
+				"android_client_info": {
+					"package_name": "com.example.stockee"
+				}
+			},
+			"oauth_client": [
+				{
+					"client_id": "449419668237-98fjipl030b02rucbus4gcum1v4rh9jm.apps.googleusercontent.com",
+					"client_type": 1,
+					"android_info": {
+						"package_name": "com.example.stockee",
+						"certificate_hash": "95877ef1cc61b9f6ab86d31ce28a2196765d42d7"
+					}
+				},
+				{
+					"client_id": "449419668237-nr3u9fdvunnbjdlq6rjur4gcelamn6fa.apps.googleusercontent.com",
+					"client_type": 3
+				}
+			],
+			"api_key": [
+				{
+					"current_key": "AIzaSyD7ztRKMNwS4gL37cA0DM3zkL_EwirOJHA"
+				}
+			],
+			"services": {
+				"appinvite_service": {
+					"other_platform_oauth_client": [
+						{
+							"client_id": "449419668237-nr3u9fdvunnbjdlq6rjur4gcelamn6fa.apps.googleusercontent.com",
+							"client_type": 3
+						},
+						{
+							"client_id": "449419668237-mvr0k7om4vmtks796grdmhvuvqdr2e8t.apps.googleusercontent.com",
+							"client_type": 2,
+							"ios_info": {
+								"bundle_id": "com.example.stockee"
+							}
+						}
+					]
+				}
+			}
+		}
+	],
+	"configuration_version": "1"
+}

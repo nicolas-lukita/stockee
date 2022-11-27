@@ -18,6 +18,7 @@ class SquareInfoCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             const CircleAvatar(
+              backgroundColor: Colors.black54,
               radius: 30,
             ),
             //Fittedbox to avoid overflow

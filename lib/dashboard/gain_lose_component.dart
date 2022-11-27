@@ -40,9 +40,15 @@ class GainLoseComponent extends StatelessWidget {
       const SizedBox(
         height: 10,
       ),
-      Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: const <Widget>[SquareInfoCard(), SquareInfoCard()])
+      MediaQuery.of(context).orientation == Orientation.portrait
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: const <Widget>[SquareInfoCard(), SquareInfoCard()])
+          : Expanded(
+              child: ListView(
+                  padding: const EdgeInsets.all(15),
+                  shrinkWrap: true,
+                  children: <Widget>[SquareInfoCard(), SquareInfoCard()])),
     ]);
   }
 }

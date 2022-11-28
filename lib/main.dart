@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stockee/authentication_page/login_screen.dart';
+import 'package:stockee/authentication_page/user_data_screen.dart';
 import 'package:stockee/services/firebase_auth_methods.dart';
 import './search_page/search_screen.dart';
 import './dashboard/dash_screen.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
             DashScreen.routeName: (context) => const DashScreen(),
             SearchScreen.routeName: (context) => const SearchScreen(),
             LoginScreen.routeName: (context) => LoginScreen(),
+            UserDataScreen.routeName: (context) => const UserDataScreen(),
           }),
     );
   }

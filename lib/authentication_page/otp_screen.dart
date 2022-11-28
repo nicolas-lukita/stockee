@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stockee/dashboard/dash_screen.dart';
 import 'package:stockee/search_page/search_screen.dart';
 
+import './user_data_screen.dart';
+
 class OtpScreen extends StatefulWidget {
   static const routeName = '/otp-screen';
   const OtpScreen(
@@ -20,42 +22,42 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   String _verificationCode = '';
 
-  _verifyPhone() async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    await _auth.verifyPhoneNumber(
-        phoneNumber: widget.phoneNumber,
-        //will send verification code
-        codeSent: (String verificationCode, int? resendToken) {
-          _verificationCode = verificationCode;
-        },
-        //will auto-verify (only works on android)
-        verificationCompleted: (PhoneAuthCredential credential) async {
-          await FirebaseAuth.instance
-              .signInWithCredential(credential)
-              .then((value) async {
-            if (value.user != null) {
-              print("Logged in successful!");
+  // _verifyPhone() async {
+  //   final FirebaseAuth _auth = FirebaseAuth.instance;
+  //   await _auth.verifyPhoneNumber(
+  //       phoneNumber: widget.phoneNumber,
+  //       //will send verification code
+  //       codeSent: (String verificationCode, int? resendToken) {
+  //         _verificationCode = verificationCode;
+  //       },
+  //       //will auto-verify (only works on android)
+  //       verificationCompleted: (PhoneAuthCredential credential) async {
+  //         await FirebaseAuth.instance
+  //             .signInWithCredential(credential)
+  //             .then((value) async {
+  //           if (value.user != null) {
+  //             print("Logged in successful!");
 
-              print(value.additionalUserInfo!.isNewUser);
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => value.additionalUserInfo!.isNewUser
-                          ? const DashScreen()
-                          : const SearchScreen()),
-                  (route) => false);
-            }
-          });
-        },
-        verificationFailed: (FirebaseAuthException e) {
-          print(e.message);
-        },
-        //resend code after 180seconds
-        codeAutoRetrievalTimeout: (String verificationId) {
-          _verificationCode = verificationId;
-        },
-        timeout: const Duration(seconds: 120));
-  }
+  //             print(value.additionalUserInfo!.isNewUser);
+  //             Navigator.pushAndRemoveUntil(
+  //                 context,
+  //                 MaterialPageRoute(
+  //                     builder: (context) => value.additionalUserInfo!.isNewUser
+  //                         ? const DashScreen()
+  //                         : const SearchScreen()),
+  //                 (route) => false);
+  //           }
+  //         });
+  //       },
+  //       verificationFailed: (FirebaseAuthException e) {
+  //         print(e.message);
+  //       },
+  //       //resend code after 180seconds
+  //       codeAutoRetrievalTimeout: (String verificationId) {
+  //         _verificationCode = verificationId;
+  //       },
+  //       timeout: const Duration(seconds: 120));
+  // }
 
   @override
   void initState() {
@@ -115,7 +117,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             .then((value) => Navigator.pushNamedAndRemoveUntil(
                                 context,
                                 value.additionalUserInfo!.isNewUser
-                                    ? SearchScreen.routeName
+                                    ? UserDataScreen.routeName
                                     : DashScreen.routeName,
                                 (route) => false));
                       } catch (err) {

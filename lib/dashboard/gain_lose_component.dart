@@ -8,47 +8,39 @@ class GainLoseComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            const Text(
+    return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Text(
               "Gainers and Losers",
               style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
             ),
-            InkWell(
-              borderRadius: BorderRadius.circular(20),
-              onTap: () {},
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    "See all",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                        color: Colors.blue[600]),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          MediaQuery.of(context).orientation == Orientation.portrait
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: const <Widget>[SquareInfoCard(), SquareInfoCard()])
+              : Flexible(
+                  child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount:
+                        (orientation == Orientation.portrait) ? 2 : 3,
+                    childAspectRatio: 1 / 1,
                   ),
-                  Icon(Icons.arrow_right_alt_rounded, color: Colors.blue[600])
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-      const SizedBox(
-        height: 10,
-      ),
-      MediaQuery.of(context).orientation == Orientation.portrait
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const <Widget>[SquareInfoCard(), SquareInfoCard()])
-          : Expanded(
-              child: ListView(
-                  padding: const EdgeInsets.all(15),
                   shrinkWrap: true,
-                  children: <Widget>[SquareInfoCard(), SquareInfoCard()])),
-    ]);
+                  padding: const EdgeInsets.all(15),
+                  itemBuilder: (context, index) {
+                    return SquareInfoCard();
+                  },
+                  itemCount: 2,
+                )),
+        ]);
   }
 }

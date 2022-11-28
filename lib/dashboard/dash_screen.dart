@@ -44,8 +44,7 @@ class _DashScreenState extends State<DashScreen> {
         actions: <Widget>[
           IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (ctx) => const SearchScreen()));
+              Navigator.pushNamed(context, SearchScreen.routeName);
             },
             icon: const Icon(Icons.search),
             color: Colors.black,

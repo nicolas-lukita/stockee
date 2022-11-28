@@ -20,6 +20,43 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   String _verificationCode = '';
 
+  _verifyPhone() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    await _auth.verifyPhoneNumber(
+        phoneNumber: widget.phoneNumber,
+        //will send verification code
+        codeSent: (String verificationCode, int? resendToken) {
+          _verificationCode = verificationCode;
+        },
+        //will auto-verify (only works on android)
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await FirebaseAuth.instance
+              .signInWithCredential(credential)
+              .then((value) async {
+            if (value.user != null) {
+              print("Logged in successful!");
+
+              print(value.additionalUserInfo!.isNewUser);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => value.additionalUserInfo!.isNewUser
+                          ? const DashScreen()
+                          : const SearchScreen()),
+                  (route) => false);
+            }
+          });
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          print(e.message);
+        },
+        //resend code after 180seconds
+        codeAutoRetrievalTimeout: (String verificationId) {
+          _verificationCode = verificationId;
+        },
+        timeout: const Duration(seconds: 120));
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -74,8 +111,13 @@ class _OtpScreenState extends State<OtpScreen> {
                           smsCode: value,
                         );
                         await FirebaseAuth.instance
-                            .signInWithCredential(credential);
-                        Navigator.of(context).pop();
+                            .signInWithCredential(credential)
+                            .then((value) => Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                value.additionalUserInfo!.isNewUser
+                                    ? SearchScreen.routeName
+                                    : DashScreen.routeName,
+                                (route) => false));
                       } catch (err) {
                         FocusScope.of(context).unfocus();
                         ScaffoldMessenger.of(context)

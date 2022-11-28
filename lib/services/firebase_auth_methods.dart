@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:stockee/authentication_page/login_screen.dart';
 
 import '../authentication_page/otp_screen.dart';
 
@@ -42,6 +43,8 @@ class FirebaseAuthMethods {
 
   Future<void> signOut(BuildContext context) async {
     try {
+      Navigator.pushNamedAndRemoveUntil(
+          context, LoginScreen.routeName, (route) => false);
       await _auth.signOut();
     } on FirebaseAuthException catch (err) {
       ScaffoldMessenger.of(context).showSnackBar(

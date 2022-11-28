@@ -6,6 +6,7 @@ import 'package:stockee/authentication_page/otp_screen.dart';
 import '../services/firebase_auth_methods.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const routeName = '/login-screen';
   LoginScreen({Key? key}) : super(key: key);
 
   @override

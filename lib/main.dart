@@ -53,7 +53,9 @@ class MyApp extends StatelessWidget {
           // );
           home: const HomeRouter(),
           routes: {
-            DashScreen.routeName: ((context) => const DashScreen()),
+            DashScreen.routeName: (context) => const DashScreen(),
+            SearchScreen.routeName: (context) => const SearchScreen(),
+            LoginScreen.routeName: (context) => LoginScreen(),
           }),
     );
   }

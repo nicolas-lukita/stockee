@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:stockee/authentication_page/login_screen.dart';
+import 'package:stockee/services/firebase_auth_methods.dart';
 import './search_page/search_screen.dart';
 import './dashboard/dash_screen.dart';
 import './details_page/details_screen.dart';
@@ -21,22 +24,50 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Stockee',
-        theme: ThemeData(
-          textTheme: const TextTheme(
-              bodyText1: TextStyle(
-                  color: Colors.black,
-                  fontSize: 26,
-                  fontWeight: FontWeight.w900)),
-          appBarTheme:
-              const AppBarTheme(iconTheme: IconThemeData(color: Colors.black)),
-          primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        //Authentication methods provider
+        Provider<FirebaseAuthMethods>(
+          create: (_) => FirebaseAuthMethods(FirebaseAuth.instance),
         ),
-        //   home: const DetailsScreen(
-        //     isFollowed: true,
-        //   ),
-        // );
-        home: LoginScreen());
+        //Stream authentication state of user
+        StreamProvider(
+            create: (context) => context.read<FirebaseAuthMethods>().authState,
+            initialData: null)
+      ],
+      child: MaterialApp(
+          title: 'Stockee',
+          theme: ThemeData(
+            textTheme: const TextTheme(
+                bodyText1: TextStyle(
+                    color: Colors.black,
+                    fontSize: 26,
+                    fontWeight: FontWeight.w900)),
+            appBarTheme: const AppBarTheme(
+                iconTheme: IconThemeData(color: Colors.black)),
+            primarySwatch: Colors.blue,
+          ),
+          //   home: const DetailsScreen(
+          //     isFollowed: true,
+          //   ),
+          // );
+          home: const HomeRouter(),
+          routes: {
+            DashScreen.routeName: ((context) => const DashScreen()),
+          }),
+    );
+  }
+}
+
+class HomeRouter extends StatelessWidget {
+  const HomeRouter({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User?>();
+    if (firebaseUser != null) {
+      return const DashScreen();
+    }
+    return LoginScreen();
   }
 }

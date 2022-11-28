@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:stockee/authentication_page/otp_screen.dart';
+
+import '../services/firebase_auth_methods.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -15,12 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
-      print("LOGINSCREEN " + _phoneNumber);
-      //if valid, then do stuff here
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (ctx) => OtpScreen(phoneNumber: _phoneNumber)));
+      context.read<FirebaseAuthMethods>().phoneSignIn(context, _phoneNumber);
     }
   }
 

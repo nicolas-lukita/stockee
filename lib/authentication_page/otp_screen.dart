@@ -1,60 +1,29 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stockee/dashboard/dash_screen.dart';
+import 'package:stockee/search_page/search_screen.dart';
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({Key? key, required this.phoneNumber}) : super(key: key);
+  static const routeName = '/otp-screen';
+  const OtpScreen(
+      {Key? key, required this.phoneNumber, required this.verificationId})
+      : super(key: key);
   final String phoneNumber;
+  final String verificationId;
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String _verificationCode = '';
-
-  _verifyPhone() async {
-    await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: widget.phoneNumber,
-        //will send verification code
-        codeSent: (String verificationCode, int? resendToken) {
-          setState(() {
-            _verificationCode = verificationCode;
-          });
-        },
-        //function will be called if verification code is correct
-        verificationCompleted: (PhoneAuthCredential credential) async {
-          await FirebaseAuth.instance
-              .signInWithCredential(credential)
-              .then((value) async {
-            if (value.user != null) {
-              print("Logged in successful!");
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => const DashScreen()),
-                  (route) => false);
-            }
-          });
-        },
-        verificationFailed: (FirebaseAuthException e) {
-          print(e.message);
-        },
-        //resend code after 180seconds
-        codeAutoRetrievalTimeout: (String verificationId) {
-          setState(() {
-            _verificationCode = verificationId;
-          });
-        },
-        timeout: const Duration(seconds: 120));
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _verifyPhone();
   }
 
   @override
@@ -99,19 +68,14 @@ class _OtpScreenState extends State<OtpScreen> {
                           " VERIFICATION CODE=" +
                           _verificationCode);
                       try {
+                        PhoneAuthCredential credential =
+                            PhoneAuthProvider.credential(
+                          verificationId: widget.verificationId,
+                          smsCode: value,
+                        );
                         await FirebaseAuth.instance
-                            .signInWithCredential(PhoneAuthProvider.credential(
-                                verificationId: _verificationCode,
-                                smsCode: value))
-                            .then((value) async {
-                          if (value.user != null) {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const DashScreen()),
-                                (route) => false);
-                          }
-                        });
+                            .signInWithCredential(credential);
+                        Navigator.of(context).pop();
                       } catch (err) {
                         FocusScope.of(context).unfocus();
                         ScaffoldMessenger.of(context)

@@ -6,6 +6,7 @@ import 'package:stockee/search_page/search_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:stockee/services/firebase_auth_methods.dart';
 
+//CHANGE TO STATELESS!!
 class DashScreen extends StatefulWidget {
   static const routeName = '/dash-screen';
   const DashScreen({Key? key}) : super(key: key);
@@ -66,13 +67,16 @@ class _DashScreenState extends State<DashScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Expanded(child: WatchlistComponent())
+                  Expanded(
+                      child: WatchlistComponent(
+                    uid: user.uid,
+                  ))
                 ],
               )
             : Row(
                 children: <Widget>[
                   Expanded(child: GainLoseComponent(orientation: orientation)),
-                  const Expanded(child: WatchlistComponent())
+                  Expanded(child: WatchlistComponent(uid: user.uid))
                 ],
               );
       }),

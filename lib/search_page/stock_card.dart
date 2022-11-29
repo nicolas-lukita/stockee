@@ -23,13 +23,13 @@ class StockCard extends StatelessWidget {
       ),
       child: GridTile(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               const SizedBox(
-                height: 5,
+                height: 10,
               ),
               LayoutBuilder(builder: (context, constraints) {
                 return CircleAvatar(
@@ -49,13 +49,18 @@ class StockCard extends StatelessWidget {
                   ),
                 );
               }),
+              const SizedBox(
+                height: 10,
+              ),
               Center(
                   child: Text(
                 name,
+                textAlign: TextAlign.center,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               )),
               Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(5),
                 child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(

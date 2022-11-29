@@ -74,7 +74,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : Expanded(
+            : Flexible(
                 child: OrientationBuilder(builder: (context, orientation) {
                 return GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

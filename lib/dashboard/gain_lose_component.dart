@@ -23,24 +23,19 @@ class GainLoseComponent extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          MediaQuery.of(context).orientation == Orientation.portrait
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const <Widget>[SquareInfoCard(), SquareInfoCard()])
-              : Flexible(
-                  child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount:
-                        (orientation == Orientation.portrait) ? 2 : 3,
-                    childAspectRatio: 1 / 1,
-                  ),
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(15),
-                  itemBuilder: (context, index) {
-                    return SquareInfoCard();
-                  },
-                  itemCount: 2,
-                )),
+          Flexible(
+              child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: (orientation == Orientation.portrait) ? 2 : 1,
+              childAspectRatio: 1 / 1,
+            ),
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(15),
+            itemBuilder: (context, index) {
+              return SquareInfoCard();
+            },
+            itemCount: 2,
+          )),
         ]);
   }
 }

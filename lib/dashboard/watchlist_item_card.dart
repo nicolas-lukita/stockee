@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:stockee/details_page/details_screen.dart';
+import 'package:stockee/helpers/button_functions.dart';
 
 class WatchlistItemCard extends StatefulWidget {
-  const WatchlistItemCard({Key? key, required this.isFollowed})
-      : super(key: key);
-  final bool isFollowed;
+  const WatchlistItemCard({
+    Key? key,
+    required this.uid,
+    required this.symbol,
+    required this.name,
+    required this.price,
+    required this.change,
+    required this.changePercent,
+  }) : super(key: key);
+  final String uid;
+  final String symbol;
+  final String name;
+  final String price;
+  final String change;
+  final String changePercent;
 
   @override
   State<WatchlistItemCard> createState() => _WatchlistItemCardState();
@@ -33,29 +46,24 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               const SizedBox(
-                width: 5,
+                width: 15,
               ),
               MediaQuery.of(context).orientation == Orientation.portrait
-                  ? IconButton(
-                      onPressed: () {
-                        setState(() {});
-                      },
-                      icon: Icon(
-                        (widget.isFollowed ? Icons.star : Icons.star_border),
-                        size: 35,
-                      ),
-                      color: Colors.amber,
-                    )
-                  : const SizedBox(
-                      width: 10,
-                    ),
-              const SizedBox(
-                width: 5,
-              ),
-              MediaQuery.of(context).orientation == Orientation.portrait
-                  ? const CircleAvatar(
-                      backgroundColor: Colors.black54,
+                  ? CircleAvatar(
+                      backgroundColor: Colors.black12,
                       radius: 25,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Text(
+                            widget.symbol,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w800),
+                          ),
+                        ),
+                      ),
                     )
                   : const SizedBox(),
               const SizedBox(
@@ -66,34 +74,42 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const <Widget>[
+                  children: <Widget>[
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        'Titleasdfasdfasdfasdf',
-                        style: TextStyle(
+                        widget.name,
+                        style: const TextStyle(
                             fontWeight: FontWeight.w800,
                             letterSpacing: 1,
                             fontSize: 16),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
-                    FittedBox(fit: BoxFit.scaleDown, child: Text('+\$6969'))
+                    FittedBox(fit: BoxFit.scaleDown, child: Text(widget.change))
                   ],
                 ),
               ),
               const Spacer(),
-              const FittedBox(
+              FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  '\$999.00',
-                  style: TextStyle(fontWeight: FontWeight.w500),
+                  widget.price,
+                  style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
-              IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
+              IconButton(
+                  onPressed: () {
+                    ButtonFunctions.followButtonFunction(
+                        widget.uid, widget.symbol);
+                  },
+                  icon: const Icon(
+                    Icons.delete,
+                    color: Color.fromARGB(255, 224, 125, 12),
+                  ))
             ],
           ),
         ),

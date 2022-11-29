@@ -15,14 +15,10 @@ class DashScreen extends StatefulWidget {
 }
 
 class _DashScreenState extends State<DashScreen> {
-  // String uid = '';
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // uid = FirebaseAuth.instance.currentUser!.uid;
-    // print("CURRENT USER ID = " + uid);
   }
 
   @override
@@ -35,7 +31,7 @@ class _DashScreenState extends State<DashScreen> {
         elevation: 0,
         title: Text(
           user.uid,
-          style: TextStyle(
+          style: const TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 35,
               color: Colors.black,

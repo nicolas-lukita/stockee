@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stockee/dashboard/dash_screen.dart';
 import 'package:stockee/dashboard/watchlist_item_card.dart';
+import 'package:stockee/helpers/stock_list_preferences.dart';
 import 'package:stockee/search_page/stock_card.dart';
 import './search_bar.dart';
 import '../services/firebase_auth_methods.dart';
+import 'dart:convert';
 
 class SearchScreen extends StatefulWidget {
   static const routeName = '/search-screen';
@@ -15,8 +19,25 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  List stockList = [];
+  var collectionRef = FirebaseFirestore.instance;
+
+  Future getStocksList() async {
+    await collectionRef.collection('stocks').get().then((snapshot) {
+      snapshot.docs.forEach((stockData) {
+        stockList.add(stockData);
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final User _user = context.read<FirebaseAuthMethods>().user;
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.95),
       appBar: AppBar(
@@ -44,22 +65,53 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       body: Column(children: <Widget>[
         const SearchBar(),
-        Expanded(child: OrientationBuilder(builder: (context, orientation) {
-          return GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: (orientation == Orientation.portrait) ? 2 : 2,
-              childAspectRatio: 1 / 1,
-            ),
-            padding: EdgeInsets.all(8),
-            itemBuilder: (context, index) {
-              return StockCard(
-                  symbol: 'NFLX',
-                  name: 'Netflixasdfasdfasdfasdfasdfds',
-                  isFollowed: false);
-            },
-            itemCount: 4,
-          );
-        })),
+        Expanded(
+            child: FutureBuilder(
+                future: getStocksList(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return OrientationBuilder(builder: (context, orientation) {
+                    return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount:
+                            (orientation == Orientation.portrait) ? 2 : 3,
+                        childAspectRatio: 1 / 1,
+                      ),
+                      padding: const EdgeInsets.all(8),
+                      itemBuilder: (context, index) {
+                        return StreamBuilder<DocumentSnapshot>(
+                            stream: collectionRef
+                                .collection('users')
+                                .doc(_user.uid)
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                var userWatchlist =
+                                    (snapshot.data!.data() as Map)['watchlist'];
+                                var newList = [...userWatchlist];
+                                return StockCard(
+                                    symbol: stockList[index]['symbol'],
+                                    name: stockList[index]['name'],
+                                    uid: _user.uid,
+                                    isFollowed: (newList.isNotEmpty &&
+                                            newList.contains(
+                                                stockList[index]['symbol']))
+                                        ? true
+                                        : false);
+                              } else {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              }
+                            });
+                      },
+                      itemCount: stockList.length,
+                    );
+                  });
+                })),
       ]),
     );
   }

@@ -1,16 +1,18 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:stockee/helpers/button_functions.dart';
 
 class StockCard extends StatelessWidget {
   const StockCard(
       {Key? key,
       required this.symbol,
       required this.name,
+      required this.uid,
       required this.isFollowed})
       : super(key: key);
   final String symbol;
   final String name;
+  final String uid;
   final bool isFollowed;
 
   @override
@@ -63,7 +65,9 @@ class StockCard extends StatelessWidget {
                       ),
                       primary: isFollowed ? Colors.grey : Colors.black87,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      ButtonFunctions.followButtonFunction(uid, symbol);
+                    },
                     child: isFollowed
                         ? const Text("Unfollow")
                         : const Text("Follow"),

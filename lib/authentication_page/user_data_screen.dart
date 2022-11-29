@@ -20,11 +20,16 @@ class _UserDataScreenState extends State<UserDataScreen> {
 
   Future addUserData(String uid, String username) async {
     print("ADD USER DATA" + uid + username);
-    Map<String, String> data = {
+    Map<String, dynamic> data = {
       "uid": uid,
       "username": username,
+      "watchlist": ['A']
     };
     await FirebaseFirestore.instance.collection('users').doc(uid).set(data);
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .set({'watchlist': []}, SetOptions(merge: true));
   }
 
   void _submitUserData() {

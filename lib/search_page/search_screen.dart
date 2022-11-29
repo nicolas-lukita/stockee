@@ -21,17 +21,22 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   List stockList = [];
   var collectionRef = FirebaseFirestore.instance;
+  bool isLoading = false;
 
   Future getStocksList() async {
+    isLoading = true;
     await collectionRef.collection('stocks').get().then((snapshot) {
       snapshot.docs.forEach((stockData) {
         stockList.add(stockData);
       });
-    });
+    }).then((value) => setState(() {
+          isLoading = false;
+        }));
   }
 
   @override
   void initState() {
+    getStocksList();
     super.initState();
   }
 
@@ -65,53 +70,48 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       body: Column(children: <Widget>[
         const SearchBar(),
-        Expanded(
-            child: FutureBuilder(
-                future: getStocksList(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  return OrientationBuilder(builder: (context, orientation) {
-                    return GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount:
-                            (orientation == Orientation.portrait) ? 2 : 3,
-                        childAspectRatio: 1 / 1,
-                      ),
-                      padding: const EdgeInsets.all(8),
-                      itemBuilder: (context, index) {
-                        return StreamBuilder<DocumentSnapshot>(
-                            stream: collectionRef
-                                .collection('users')
-                                .doc(_user.uid)
-                                .snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                var userWatchlist =
-                                    (snapshot.data!.data() as Map)['watchlist'];
-                                var newList = [...userWatchlist];
-                                return StockCard(
-                                    symbol: stockList[index]['symbol'],
-                                    name: stockList[index]['name'],
-                                    uid: _user.uid,
-                                    isFollowed: (newList.isNotEmpty &&
-                                            newList.contains(
-                                                stockList[index]['symbol']))
-                                        ? true
-                                        : false);
-                              } else {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              }
-                            });
-                      },
-                      itemCount: stockList.length,
-                    );
-                  });
-                })),
+        isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Expanded(
+                child: OrientationBuilder(builder: (context, orientation) {
+                return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount:
+                        (orientation == Orientation.portrait) ? 2 : 3,
+                    childAspectRatio: 1 / 1,
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  itemBuilder: (context, index) {
+                    return StreamBuilder<DocumentSnapshot>(
+                        stream: collectionRef
+                            .collection('users')
+                            .doc(_user.uid)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            var userWatchlist =
+                                (snapshot.data!.data() as Map)['watchlist'];
+                            var newList = [...userWatchlist];
+                            return StockCard(
+                                symbol: stockList[index]['symbol'],
+                                name: stockList[index]['name'],
+                                uid: _user.uid,
+                                isFollowed: (newList.isNotEmpty &&
+                                        newList.contains(
+                                            stockList[index]['symbol']))
+                                    ? true
+                                    : false);
+                          } else {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                        });
+                  },
+                  itemCount: stockList.length,
+                );
+              })),
       ]),
     );
   }

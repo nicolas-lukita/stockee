@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:stockee/dashboard/dash_screen.dart';
+import 'package:stockee/home_page/home_screen.dart';
 import 'package:stockee/search_page/search_screen.dart';
 
 import './user_data_screen.dart';
@@ -118,7 +119,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                 context,
                                 value.additionalUserInfo!.isNewUser
                                     ? UserDataScreen.routeName
-                                    : DashScreen.routeName,
+                                    : HomeScreen.routeName,
                                 (route) => false));
                       } catch (err) {
                         FocusScope.of(context).unfocus();

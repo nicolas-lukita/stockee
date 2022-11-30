@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stockee/authentication_page/login_screen.dart';
 import 'package:stockee/authentication_page/user_data_screen.dart';
+import 'package:stockee/home_page/home_screen.dart';
 import 'package:stockee/services/firebase_auth_methods.dart';
 import './search_page/search_screen.dart';
 import './dashboard/dash_screen.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
           ),
           home: const HomeRouter(),
           routes: {
-            DashScreen.routeName: (context) => const DashScreen(),
+            HomeScreen.routeName: (context) => const HomeScreen(),
             SearchScreen.routeName: (context) => const SearchScreen(),
             LoginScreen.routeName: (context) => LoginScreen(),
             UserDataScreen.routeName: (context) => const UserDataScreen(),
@@ -67,7 +68,7 @@ class HomeRouter extends StatelessWidget {
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
     if (firebaseUser != null) {
-      return const DashScreen();
+      return const DefaultTabController(length: 2, child: HomeScreen());
     }
     return LoginScreen();
   }

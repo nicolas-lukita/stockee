@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:stockee/dashboard/dash_screen.dart';
 import 'package:stockee/dashboard/watchlist_item_card.dart';
 import 'package:stockee/helpers/stock_list_preferences.dart';
+import 'package:stockee/home_page/home_screen.dart';
 import 'package:stockee/search_page/stock_card.dart';
 import './search_bar.dart';
 import '../services/firebase_auth_methods.dart';
@@ -62,7 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
             child: IconButton(
                 onPressed: () {
                   Navigator.pushNamedAndRemoveUntil(
-                      context, DashScreen.routeName, (route) => false);
+                      context, HomeScreen.routeName, (route) => false);
                 },
                 icon: const Icon(Icons.home)),
           )

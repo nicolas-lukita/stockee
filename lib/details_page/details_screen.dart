@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:stockee/models/stock_info.dart';
-import './collapsed_panel_component.dart';
-import './news_component.dart';
-import './details_component.dart';
+import '../models/global_quote.dart';
+import 'collapsed_panel_section.dart';
+import 'news_section.dart';
+import 'details_section.dart';
 
 class DetailsScreen extends StatefulWidget {
   static const routeName = '/details-screen';
@@ -18,7 +19,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
     final String uid = args['uid'];
-    final StockInfo stock = args['stock'];
+    final String stockName = args['stockName'];
+    final GlobalQuote globalQuoteData = args['globalQuoteData'];
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -47,16 +50,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20), topRight: Radius.circular(20)),
         //slide up content
-        panel: const NewsComponent(),
-        collapsed: const CollapsedPanelComponent(),
+        panel: const NewsSection(),
+        collapsed: const CollapsedPanelSection(),
         //main content behind sliding up panel
         body: Padding(
           padding: EdgeInsets.all(15),
           child: ConstrainedBox(
               constraints:
                   BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-              child: DetailsComponent(
-                stock: stock,
+              child: DetailsSection(
+                stockName: stockName,
+                globalQuoteData: globalQuoteData,
               )),
         ),
       ),

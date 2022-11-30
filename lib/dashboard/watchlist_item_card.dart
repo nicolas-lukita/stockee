@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:stockee/details_page/details_screen.dart';
 import 'package:stockee/helpers/button_functions.dart';
+import 'package:stockee/models/global_quote.dart';
 import 'package:stockee/models/stock_info.dart';
 
 class WatchlistItemCard extends StatefulWidget {
   const WatchlistItemCard({
     Key? key,
     required this.uid,
-    required this.stockData,
+    required this.stockName,
+    required this.globalQuoteData,
   }) : super(key: key);
   final String uid;
-  final StockInfo stockData;
+  final String stockName;
+  final GlobalQuote globalQuoteData;
 
   @override
   State<WatchlistItemCard> createState() => _WatchlistItemCardState();
@@ -23,7 +26,8 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
       onTap: () {
         Navigator.pushNamed(context, DetailsScreen.routeName, arguments: {
           'uid': widget.uid,
-          'stock': widget.stockData,
+          'stockName': widget.stockName,
+          'globalQuoteData': widget.globalQuoteData,
         });
       },
       child: Card(
@@ -48,7 +52,7 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
                         child: Padding(
                           padding: const EdgeInsets.all(15),
                           child: Text(
-                            widget.stockData.symbol,
+                            widget.globalQuoteData.globalQuote.symbol,
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w800),
@@ -69,7 +73,7 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        widget.stockData.name,
+                        widget.stockName,
                         style: const TextStyle(
                             fontWeight: FontWeight.w800,
                             letterSpacing: 1,
@@ -82,7 +86,7 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
                     ),
                     FittedBox(
                         fit: BoxFit.scaleDown,
-                        child: Text(widget.stockData.change))
+                        child: Text(widget.globalQuoteData.globalQuote.change))
                   ],
                 ),
               ),
@@ -90,7 +94,7 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  widget.stockData.price,
+                  widget.globalQuoteData.globalQuote.price,
                   style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
@@ -98,8 +102,8 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: IconButton(
                     onPressed: () {
-                      ButtonFunctions.followButtonFunction(
-                          widget.uid, widget.stockData.symbol);
+                      ButtonFunctions.followButtonFunction(widget.uid,
+                          widget.globalQuoteData.globalQuote.symbol);
                     },
                     icon: const Icon(
                       Icons.delete,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:stockee/helpers/converters/stock_data_convert.dart';
+import 'package:stockee/details_page/stock_data_convert.dart';
 import 'package:candlesticks/candlesticks.dart';
 
 class CandlestickChart extends StatefulWidget {

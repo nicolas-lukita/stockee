@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import './news_card.dart';
 
-class NewsComponent extends StatelessWidget {
-  const NewsComponent({Key? key}) : super(key: key);
+class NewsSection extends StatelessWidget {
+  const NewsSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CollapsedPanelComponent extends StatelessWidget {
-  const CollapsedPanelComponent({Key? key}) : super(key: key);
+class CollapsedPanelSection extends StatelessWidget {
+  const CollapsedPanelSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:stockee/details_page/details_header.dart';
+import 'package:stockee/models/global_quote.dart';
 import 'package:stockee/models/stock_info.dart';
 import './candlestick_chart.dart';
 
-class DetailsComponent extends StatelessWidget {
-  const DetailsComponent({Key? key, required this.stock}) : super(key: key);
-  final StockInfo stock;
+class DetailsSection extends StatelessWidget {
+  const DetailsSection(
+      {Key? key, required this.stockName, required this.globalQuoteData})
+      : super(key: key);
+  final String stockName;
+  final GlobalQuote globalQuoteData;
 
   Widget FollowButton() {
     return ElevatedButton(
@@ -34,7 +38,8 @@ class DetailsComponent extends StatelessWidget {
             ? Column(
                 children: <Widget>[
                   DetailsHeader(
-                    stock: stock,
+                    stockName: stockName,
+                    globalQuoteData: globalQuoteData,
                   ),
                   const SizedBox(
                     height: 30,
@@ -53,7 +58,10 @@ class DetailsComponent extends StatelessWidget {
                     flex: 2,
                     child: Column(
                       children: <Widget>[
-                        DetailsHeader(stock: stock),
+                        DetailsHeader(
+                          stockName: stockName,
+                          globalQuoteData: globalQuoteData,
+                        ),
                         const SizedBox(
                           height: 30,
                         ),

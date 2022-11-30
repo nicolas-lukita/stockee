@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import './square_info_card.dart';
 
-class GainLoseComponent extends StatelessWidget {
-  const GainLoseComponent({Key? key, required this.orientation})
+class GainLoseSection extends StatelessWidget {
+  const GainLoseSection({Key? key, required this.orientation})
       : super(key: key);
   final Orientation orientation;
 

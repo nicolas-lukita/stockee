@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:stockee/models/global_quote.dart';
 import 'package:stockee/models/stock_info.dart';
 
 class DetailsHeader extends StatelessWidget {
-  const DetailsHeader({Key? key, required this.stock}) : super(key: key);
-  final StockInfo stock;
+  const DetailsHeader(
+      {Key? key, required this.stockName, required this.globalQuoteData})
+      : super(key: key);
+  final String stockName;
+  final GlobalQuote globalQuoteData;
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +15,7 @@ class DetailsHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          stock.symbol,
+          globalQuoteData.globalQuote.symbol,
           style: const TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 16,
@@ -19,7 +23,7 @@ class DetailsHeader extends StatelessWidget {
               letterSpacing: 0.5),
         ),
         Text(
-          stock.name,
+          stockName,
           style: const TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 35,
@@ -29,7 +33,7 @@ class DetailsHeader extends StatelessWidget {
         Row(
           children: <Widget>[
             Text(
-              '\$' + stock.price,
+              '\$' + globalQuoteData.globalQuote.price,
               style: const TextStyle(
                   fontWeight: FontWeight.w800,
                   fontSize: 18,
@@ -40,7 +44,7 @@ class DetailsHeader extends StatelessWidget {
               width: 10,
             ),
             Text(
-              stock.changePercent,
+              globalQuoteData.globalQuote.changePercent,
               style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
@@ -51,7 +55,7 @@ class DetailsHeader extends StatelessWidget {
               width: 10,
             ),
             Text(
-              stock.change,
+              globalQuoteData.globalQuote.change,
               style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,

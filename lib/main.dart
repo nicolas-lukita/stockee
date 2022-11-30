@@ -48,10 +48,6 @@ class MyApp extends StatelessWidget {
                 iconTheme: IconThemeData(color: Colors.black)),
             primarySwatch: Colors.blue,
           ),
-          //   home: const DetailsScreen(
-          //     isFollowed: true,
-          //   ),
-          // );
           home: const HomeRouter(),
           routes: {
             DashScreen.routeName: (context) => const DashScreen(),

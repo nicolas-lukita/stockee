@@ -1,56 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:stockee/models/stock_info.dart';
 
 class DetailsHeader extends StatelessWidget {
-  const DetailsHeader({Key? key}) : super(key: key);
+  const DetailsHeader({Key? key, required this.stock}) : super(key: key);
+  final StockInfo stock;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text(
-          'GME',
-          style: TextStyle(
+        Text(
+          stock.symbol,
+          style: const TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 16,
               color: Colors.grey,
               letterSpacing: 0.5),
         ),
-        const Text(
-          'GameStop',
-          style: TextStyle(
+        Text(
+          stock.name,
+          style: const TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 35,
               color: Colors.black,
               letterSpacing: 0.5),
         ),
         Row(
-          children: const <Widget>[
+          children: <Widget>[
             Text(
-              '\$399',
-              style: TextStyle(
+              '\$' + stock.price,
+              style: const TextStyle(
                   fontWeight: FontWeight.w800,
                   fontSize: 18,
                   color: Colors.black,
                   letterSpacing: 0.5),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(
-              '+\$40%',
-              style: TextStyle(
+              stock.changePercent,
+              style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
                   color: Colors.red,
                   letterSpacing: 0.5),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(
-              '-\$23.8',
-              style: TextStyle(
+              stock.change,
+              style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
                   color: Colors.grey,

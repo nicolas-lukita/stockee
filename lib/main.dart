@@ -58,6 +58,7 @@ class MyApp extends StatelessWidget {
             SearchScreen.routeName: (context) => const SearchScreen(),
             LoginScreen.routeName: (context) => LoginScreen(),
             UserDataScreen.routeName: (context) => const UserDataScreen(),
+            DetailsScreen.routeName: (context) => const DetailsScreen(),
           }),
     );
   }

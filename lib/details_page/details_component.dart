@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:stockee/details_page/details_header.dart';
+import 'package:stockee/models/stock_info.dart';
 import './candlestick_chart.dart';
 
 class DetailsComponent extends StatelessWidget {
-  const DetailsComponent({Key? key}) : super(key: key);
+  const DetailsComponent({Key? key, required this.stock}) : super(key: key);
+  final StockInfo stock;
 
   Widget FollowButton() {
     return ElevatedButton(
@@ -31,7 +33,9 @@ class DetailsComponent extends StatelessWidget {
         return orientation == Orientation.portrait
             ? Column(
                 children: <Widget>[
-                  DetailsHeader(),
+                  DetailsHeader(
+                    stock: stock,
+                  ),
                   const SizedBox(
                     height: 30,
                   ),
@@ -49,7 +53,7 @@ class DetailsComponent extends StatelessWidget {
                     flex: 2,
                     child: Column(
                       children: <Widget>[
-                        const DetailsHeader(),
+                        DetailsHeader(stock: stock),
                         const SizedBox(
                           height: 30,
                         ),

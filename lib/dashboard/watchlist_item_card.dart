@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:stockee/details_page/details_screen.dart';
 import 'package:stockee/helpers/button_functions.dart';
+import 'package:stockee/models/stock_info.dart';
 
 class WatchlistItemCard extends StatefulWidget {
   const WatchlistItemCard({
     Key? key,
     required this.uid,
-    required this.symbol,
-    required this.name,
-    required this.price,
-    required this.change,
-    required this.changePercent,
+    required this.stockData,
   }) : super(key: key);
   final String uid;
-  final String symbol;
-  final String name;
-  final String price;
-  final String change;
-  final String changePercent;
+  final StockInfo stockData;
 
   @override
   State<WatchlistItemCard> createState() => _WatchlistItemCardState();
@@ -28,12 +21,10 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (ctx) => const DetailsScreen(
-                      isFollowed: true,
-                    )));
+        Navigator.pushNamed(context, DetailsScreen.routeName, arguments: {
+          'uid': widget.uid,
+          'stock': widget.stockData,
+        });
       },
       child: Card(
         shape: RoundedRectangleBorder(
@@ -57,7 +48,7 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
                         child: Padding(
                           padding: const EdgeInsets.all(15),
                           child: Text(
-                            widget.symbol,
+                            widget.stockData.symbol,
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w800),
@@ -78,7 +69,7 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        widget.name,
+                        widget.stockData.name,
                         style: const TextStyle(
                             fontWeight: FontWeight.w800,
                             letterSpacing: 1,
@@ -89,7 +80,9 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
                     const SizedBox(
                       height: 8,
                     ),
-                    FittedBox(fit: BoxFit.scaleDown, child: Text(widget.change))
+                    FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(widget.stockData.change))
                   ],
                 ),
               ),
@@ -97,19 +90,22 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  widget.price,
+                  widget.stockData.price,
                   style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
-              IconButton(
-                  onPressed: () {
-                    ButtonFunctions.followButtonFunction(
-                        widget.uid, widget.symbol);
-                  },
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Color.fromARGB(255, 224, 125, 12),
-                  ))
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: IconButton(
+                    onPressed: () {
+                      ButtonFunctions.followButtonFunction(
+                          widget.uid, widget.stockData.symbol);
+                    },
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Color.fromARGB(255, 224, 125, 12),
+                    )),
+              )
             ],
           ),
         ),

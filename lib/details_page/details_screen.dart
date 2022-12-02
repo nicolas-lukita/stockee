@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:stockee/models/stock_info.dart';
 import '../models/global_quote.dart';
+import '../news_page.dart/news_section.dart';
 import 'collapsed_panel_section.dart';
-import 'news_section.dart';
 import 'details_section.dart';
 
 class DetailsScreen extends StatefulWidget {
@@ -50,7 +50,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20), topRight: Radius.circular(20)),
         //slide up content
-        panel: const NewsSection(),
+        panel: NewsSection(
+          ticker: globalQuoteData.globalQuote.symbol,
+        ),
         collapsed: const CollapsedPanelSection(),
         //main content behind sliding up panel
         body: Padding(

@@ -43,6 +43,8 @@ dependencies:
   flutter_otp_text_field: ^1.1.1
   provider: ^6.0.4
   cloud_firestore: ^3.5.1
+  shared_preferences: ^2.0.15
+  shared_preferences_web: ^2.0.4
 
 # dependency_overrides:
 #   firebase_core_platform_interface: 4.5.1
@@ -74,6 +76,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - lib/dummy_data/intraday_sample.json
+    - assets/stocks.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

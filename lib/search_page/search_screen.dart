@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:stockee/dashboard/dash_screen.dart';
 import 'package:stockee/dashboard/watchlist_item_card.dart';
 import 'package:stockee/helpers/stock_list_preferences.dart';
 import 'package:stockee/home_page/home_screen.dart';
 import 'package:stockee/search_page/stock_card.dart';
+import '../models/stock_listing.dart';
 import './search_bar.dart';
 import '../services/firebase_auth_methods.dart';
 import 'dart:convert';
@@ -20,25 +22,42 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  List stockList = [];
+  List<StockListing> _stockList = [];
   var collectionRef = FirebaseFirestore.instance;
   bool isLoading = false;
 
-  Future getStocksList() async {
-    isLoading = true;
-    await collectionRef.collection('stocks').get().then((snapshot) {
-      snapshot.docs.forEach((stockData) {
-        stockList.add(stockData);
-      });
-    }).then((value) => setState(() {
-          isLoading = false;
-        }));
+  //============================================================================
+  //  Use for fetching stock listing from firestore database
+  //  (currently not in use because of high read request for spark plan)
+  //============================================================================
+  // Future getStocksList() async {
+  //   isLoading = true;
+  //   await collectionRef.collection('stocks').get().then((snapshot) {
+  //     snapshot.docs.forEach((stockData) {
+  //       stockList.add(stockData);
+  //     });
+  //   }).then((value) => setState(() {
+  //         isLoading = false;
+  //       }));
+  // }
+  //============================================================================
+
+  Future readStockListing() async {
+    setState(() {
+      isLoading = true;
+    });
+    final response = await rootBundle.loadString('assets/stocks.json');
+    final stockListing = stockListingFromJson(response);
+    setState(() {
+      _stockList = stockListing;
+      isLoading = false;
+    });
   }
 
   @override
   void initState() {
-    getStocksList();
     super.initState();
+    readStockListing();
   }
 
   @override
@@ -96,12 +115,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                 (snapshot.data!.data() as Map)['watchlist'];
                             var newList = [...userWatchlist];
                             return StockCard(
-                                symbol: stockList[index]['symbol'],
-                                name: stockList[index]['name'],
+                                symbol: _stockList[index].symbol,
+                                name: _stockList[index].name,
                                 uid: _user.uid,
                                 isFollowed: (newList.isNotEmpty &&
-                                        newList.contains(
-                                            stockList[index]['symbol']))
+                                        newList
+                                            .contains(_stockList[index].symbol))
                                     ? true
                                     : false);
                           } else {
@@ -110,7 +129,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           }
                         });
                   },
-                  itemCount: stockList.length,
+                  itemCount: _stockList.length,
                 );
               })),
       ]),

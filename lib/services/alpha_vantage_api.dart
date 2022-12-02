@@ -11,10 +11,10 @@ class AlphaVantageApi {
   Future<dynamic> getGlobalQuote(String symbol) async {
     String apiFunction = "function=GLOBAL_QUOTE";
 
-    // var url = Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo");
+    var url = Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo");
 
-    var url = Uri.parse(
-        "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
+    // var url = Uri.parse(
+    //     "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
 
     var response = await client.get(url);
     if (response.statusCode == 200) {
@@ -65,6 +65,23 @@ class AlphaVantageApi {
 
     // var url = Uri.parse(
     //     "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
+
+    var response = await client.get(url);
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      log("Stock weekly api request error");
+    }
+  }
+
+  Future<dynamic> getNewsSentiment(String symbol) async {
+    String apiFunction = "function=NEWS_SENTIMENT";
+
+    var url = Uri.parse(
+        "$baseUrl$apiFunction&tickers=AAPL&topics=technology&apikey=demo");
+
+    // var url = Uri.parse(
+    //     "$baseUrl$apiFunction&tickers=$symbol&apikey=$alphavantageKey");
 
     var response = await client.get(url);
     if (response.statusCode == 200) {

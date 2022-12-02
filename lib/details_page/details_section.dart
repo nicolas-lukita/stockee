@@ -51,29 +51,31 @@ class DetailsSection extends StatelessWidget {
                   FollowButton(),
                 ],
               )
-            : Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      children: <Widget>[
-                        DetailsHeader(
-                          stockName: stockName,
-                          globalQuoteData: globalQuoteData,
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        FollowButton(),
-                      ],
+            : SingleChildScrollView(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        children: <Widget>[
+                          DetailsHeader(
+                            stockName: stockName,
+                            globalQuoteData: globalQuoteData,
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          FollowButton(),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 50,
-                  ),
-                  Expanded(flex: 3, child: CandlestickChart()),
-                ],
+                    const SizedBox(
+                      width: 50,
+                    ),
+                    Expanded(flex: 3, child: CandlestickChart()),
+                  ],
+                ),
               );
       },
     );

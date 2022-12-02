@@ -74,6 +74,22 @@ class AlphaVantageApi {
     }
   }
 
+  Future<dynamic> getMonthly(String symbol) async {
+    String apiFunction = "function=TIME_SERIES_MONTHLY_ADJUSTED";
+
+    var url = Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo");
+
+    // var url = Uri.parse(
+    //     "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
+
+    var response = await client.get(url);
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      log("Stock weekly api request error");
+    }
+  }
+
   Future<dynamic> getNewsSentiment(String symbol) async {
     String apiFunction = "function=NEWS_SENTIMENT";
 
@@ -87,7 +103,7 @@ class AlphaVantageApi {
     if (response.statusCode == 200) {
       return response.body;
     } else {
-      log("Stock weekly api request error");
+      log("News Sentiment api request error");
     }
   }
 }

@@ -10,7 +10,7 @@ class CustomNavigationBar extends StatelessWidget {
       child: const TabBar(
         tabs: [
           Tab(icon: Icon(Icons.home)),
-          Tab(icon: Icon(Icons.face)),
+          Tab(icon: Icon(Icons.account_box)),
         ],
       ),
     );

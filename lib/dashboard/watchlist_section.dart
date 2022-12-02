@@ -65,7 +65,7 @@ class _WatchlistSectionState extends State<WatchlistSection> {
                       SizedBox(
                         height: 30,
                       ),
-                      Text('FETCHING DATA FROM API...')
+                      Text('Fetching your data...')
                     ],
                   ),
                 )

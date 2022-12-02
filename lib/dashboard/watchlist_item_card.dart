@@ -88,7 +88,28 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
                     ),
                     FittedBox(
                         fit: BoxFit.scaleDown,
-                        child: Text(widget.globalQuoteData.globalQuote.change))
+                        child: double.parse(
+                                    widget.globalQuoteData.globalQuote.change) >
+                                0
+                            ? Text(
+                                "+\$" +
+                                    widget.globalQuoteData.globalQuote.change,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.green,
+                                    letterSpacing: 0.5),
+                              )
+                            : Text(
+                                "-\$" +
+                                    widget.globalQuoteData.globalQuote.change
+                                        .replaceAll(RegExp('-'), ''),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Colors.red,
+                                    letterSpacing: 0.5),
+                              ))
                   ],
                 ),
               ),
@@ -96,7 +117,7 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  widget.globalQuoteData.globalQuote.price,
+                  "\$" + (widget.globalQuoteData.globalQuote.price),
                   style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),

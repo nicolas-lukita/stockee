@@ -68,7 +68,7 @@ class HomeRouter extends StatelessWidget {
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
     if (firebaseUser != null) {
-      return const DefaultTabController(length: 2, child: HomeScreen());
+      return const HomeScreen();
     }
     return LoginScreen();
   }

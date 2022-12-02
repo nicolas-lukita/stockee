@@ -14,10 +14,17 @@ import '../models/global_quote.dart';
 //CHANGE TO STATELESS!!
 class DashScreen extends StatefulWidget {
   static const routeName = '/dash-screen';
-  const DashScreen({Key? key, required this.uid, required this.userWatchlist})
+  const DashScreen(
+      {Key? key,
+      required this.uid,
+      required this.userWatchlist,
+      required this.globalQuoteDataList,
+      required this.refreshHome})
       : super(key: key);
   final String uid;
   final List userWatchlist;
+  final List globalQuoteDataList;
+  final Function() refreshHome;
 
   @override
   State<DashScreen> createState() => _DashScreenState();
@@ -28,6 +35,7 @@ class _DashScreenState extends State<DashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("DASH SCREEN BUILD");
     return OrientationBuilder(builder: (ctx, orientation) {
       return orientation == Orientation.portrait
           ? Column(
@@ -43,6 +51,8 @@ class _DashScreenState extends State<DashScreen> {
                     child: WatchlistSection(
                   uid: widget.uid,
                   watchlist: widget.userWatchlist,
+                  globalQuoteDataList: widget.globalQuoteDataList,
+                  refreshHome: widget.refreshHome,
                 ))
               ],
             )
@@ -51,7 +61,11 @@ class _DashScreenState extends State<DashScreen> {
                 Expanded(child: GainLoseSection(orientation: orientation)),
                 Expanded(
                     child: WatchlistSection(
-                        uid: widget.uid, watchlist: widget.userWatchlist))
+                  uid: widget.uid,
+                  watchlist: widget.userWatchlist,
+                  globalQuoteDataList: widget.globalQuoteDataList,
+                  refreshHome: widget.refreshHome,
+                ))
               ],
             );
     });

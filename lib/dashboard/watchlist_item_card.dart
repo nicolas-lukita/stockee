@@ -10,10 +10,12 @@ class WatchlistItemCard extends StatefulWidget {
     required this.uid,
     required this.stockName,
     required this.globalQuoteData,
+    required this.refreshHome,
   }) : super(key: key);
   final String uid;
   final String stockName;
   final GlobalQuote globalQuoteData;
+  final Function() refreshHome;
 
   @override
   State<WatchlistItemCard> createState() => _WatchlistItemCardState();
@@ -104,6 +106,7 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
                     onPressed: () {
                       ButtonFunctions.followButtonFunction(widget.uid,
                           widget.globalQuoteData.globalQuote.symbol);
+                      widget.refreshHome();
                     },
                     icon: const Icon(
                       Icons.delete,

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ButtonFunctions {
   static followButtonFunction(String uid, String symbol) async {
+    print("BUTTON PRESSED");
     List _watchlist = [];
     List noDupes = [];
     var docRef = FirebaseFirestore.instance.collection('users').doc(uid);

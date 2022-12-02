@@ -44,7 +44,7 @@ class _TabBarWrapperState extends State<TabBarWrapper> {
         isLoading = true;
       });
       isLoading = true;
-      AlphaVantageApi().getGlobalQuote(item).then((res) {
+      AlphaVantageApi().getGlobalQuote(item['symbol']).then((res) {
         globalQuoteList.insert(0, globalQuoteFromJson(res));
       }).then((value) => setState(() {
             isLoading = false;
@@ -88,6 +88,7 @@ class _TabBarWrapperState extends State<TabBarWrapper> {
             PortfolioScreen(
               uid: widget.uid,
               userWatchlist: widget.userWatchlist,
+              globalQuoteDataList: globalQuoteList,
             )
           ]);
   }

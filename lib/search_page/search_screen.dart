@@ -119,8 +119,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                 name: _stockList[index].name,
                                 uid: _user.uid,
                                 isFollowed: (newList.isNotEmpty &&
-                                        newList
-                                            .contains(_stockList[index].symbol))
+                                        newList.firstWhere(
+                                                (element) =>
+                                                    element['symbol'] ==
+                                                    _stockList[index].symbol,
+                                                orElse: () => null) !=
+                                            null)
                                     ? true
                                     : false);
                           } else {

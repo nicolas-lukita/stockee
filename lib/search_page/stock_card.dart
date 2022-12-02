@@ -71,7 +71,7 @@ class StockCard extends StatelessWidget {
                       primary: isFollowed ? Colors.grey : Colors.black87,
                     ),
                     onPressed: () {
-                      ButtonFunctions.followButtonFunction(uid, symbol);
+                      ButtonFunctions.followButtonFunction(uid, symbol, name);
                     },
                     child: isFollowed
                         ? const Text("Unfollow")

@@ -124,7 +124,7 @@ class _WatchlistSectionState extends State<WatchlistSection> {
                         //==============================================================
                         return WatchlistItemCard(
                           uid: widget.uid,
-                          stockName: widget.watchlist[index],
+                          stockName: widget.watchlist[index]['name'],
                           globalQuoteData: widget.globalQuoteDataList[index],
                           refreshHome: widget.refreshHome,
                         );

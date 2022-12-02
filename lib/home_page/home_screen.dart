@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 userWatchlist.forEach(
                   (element) async {
                     var response = await AlphaVantageApi()
-                        .getGlobalQuote(element)
+                        .getGlobalQuote(element.symbol)
                         .catchError((err) {
                       //error handling here later
                     });

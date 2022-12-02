@@ -66,54 +66,57 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
               const SizedBox(
                 width: 10,
               ),
-              Container(
-                constraints: const BoxConstraints(minWidth: 100, maxWidth: 100),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
+              Expanded(
+                child: Container(
+                  constraints:
+                      const BoxConstraints(minWidth: 100, maxWidth: 100),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
                         widget.stockName,
                         style: const TextStyle(
                             fontWeight: FontWeight.w800,
                             letterSpacing: 1,
                             fontSize: 16),
                         overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: double.parse(
-                                    widget.globalQuoteData.globalQuote.change) >
-                                0
-                            ? Text(
-                                "+\$" +
-                                    widget.globalQuoteData.globalQuote.change,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                    color: Colors.green,
-                                    letterSpacing: 0.5),
-                              )
-                            : Text(
-                                "-\$" +
-                                    widget.globalQuoteData.globalQuote.change
-                                        .replaceAll(RegExp('-'), ''),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                    color: Colors.red,
-                                    letterSpacing: 0.5),
-                              ))
-                  ],
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: double.parse(widget
+                                      .globalQuoteData.globalQuote.change) >
+                                  0
+                              ? Text(
+                                  "+\$" +
+                                      widget.globalQuoteData.globalQuote.change,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Colors.green,
+                                      letterSpacing: 0.5),
+                                )
+                              : Text(
+                                  "-\$" +
+                                      widget.globalQuoteData.globalQuote.change
+                                          .replaceAll(RegExp('-'), ''),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Colors.red,
+                                      letterSpacing: 0.5),
+                                ))
+                    ],
+                  ),
                 ),
               ),
-              const Spacer(),
+              const SizedBox(
+                width: 10,
+              ),
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
@@ -125,8 +128,10 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: IconButton(
                     onPressed: () {
-                      ButtonFunctions.followButtonFunction(widget.uid,
-                          widget.globalQuoteData.globalQuote.symbol);
+                      ButtonFunctions.followButtonFunction(
+                          widget.uid,
+                          widget.globalQuoteData.globalQuote.symbol,
+                          widget.stockName);
                       widget.refreshHome();
                     },
                     icon: const Icon(

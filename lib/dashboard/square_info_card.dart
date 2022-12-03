@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:stockee/helpers/custom_text_decorator.dart';
+
+import '../models/global_quote.dart';
 
 class SquareInfoCard extends StatelessWidget {
-  const SquareInfoCard({Key? key}) : super(key: key);
+  const SquareInfoCard({Key? key, required this.globalQuoteData})
+      : super(key: key);
+  final GlobalQuote globalQuoteData;
 
   @override
   Widget build(BuildContext context) {
@@ -10,38 +15,32 @@ class SquareInfoCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: Container(
-        width: 150,
-        height: 150,
         margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.all(5),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            const CircleAvatar(
-              backgroundColor: Colors.black54,
-              radius: 30,
-            ),
+            CustomTextDecorator.stockLogo(
+                globalQuoteData.globalQuote.symbol, 30),
             //Fittedbox to avoid overflow
             FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
-                "Teslasido",
+                globalQuoteData.globalQuote.symbol,
                 style: Theme.of(context).textTheme.headline6,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            const Text(
-              "\$999",
-              style: TextStyle(fontWeight: FontWeight.w500),
+            CustomTextDecorator.stockPriceText(
+              globalQuoteData.globalQuote.price,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const <Widget>[
-                Text("\$98"),
-                Text(
-                  "-\$200",
-                  style: TextStyle(fontWeight: FontWeight.w200),
-                )
+              children: <Widget>[
+                CustomTextDecorator.stockChangePercentText(
+                    globalQuoteData.globalQuote.changePercent),
+                CustomTextDecorator.stockChangeText(
+                    globalQuoteData.globalQuote.change),
               ],
             )
           ],

@@ -31,8 +31,6 @@ class DashScreen extends StatefulWidget {
 }
 
 class _DashScreenState extends State<DashScreen> {
-  late Stream<DocumentSnapshot> userDocStream;
-
   @override
   Widget build(BuildContext context) {
     print("DASH SCREEN BUILD");
@@ -43,29 +41,44 @@ class _DashScreenState extends State<DashScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                GainLoseSection(orientation: orientation),
+                Expanded(
+                  flex: 5,
+                  child: GainLoseSection(
+                    orientation: orientation,
+                    watchlist: widget.userWatchlist,
+                    globalQuoteDataList: widget.globalQuoteDataList,
+                  ),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
                 Expanded(
+                    flex: 5,
                     child: WatchlistSection(
-                  uid: widget.uid,
-                  watchlist: widget.userWatchlist,
-                  globalQuoteDataList: widget.globalQuoteDataList,
-                  refreshHome: widget.refreshHome,
-                ))
+                      uid: widget.uid,
+                      watchlist: widget.userWatchlist,
+                      globalQuoteDataList: widget.globalQuoteDataList,
+                      refreshHome: widget.refreshHome,
+                    ))
               ],
             )
           : Row(
               children: <Widget>[
-                Expanded(child: GainLoseSection(orientation: orientation)),
                 Expanded(
+                    flex: 4,
+                    child: GainLoseSection(
+                      orientation: orientation,
+                      watchlist: widget.userWatchlist,
+                      globalQuoteDataList: widget.globalQuoteDataList,
+                    )),
+                Expanded(
+                    flex: 6,
                     child: WatchlistSection(
-                  uid: widget.uid,
-                  watchlist: widget.userWatchlist,
-                  globalQuoteDataList: widget.globalQuoteDataList,
-                  refreshHome: widget.refreshHome,
-                ))
+                      uid: widget.uid,
+                      watchlist: widget.userWatchlist,
+                      globalQuoteDataList: widget.globalQuoteDataList,
+                      refreshHome: widget.refreshHome,
+                    ))
               ],
             );
     });

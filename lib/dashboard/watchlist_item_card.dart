@@ -4,6 +4,8 @@ import 'package:stockee/helpers/button_functions.dart';
 import 'package:stockee/models/global_quote.dart';
 import 'package:stockee/models/stock_info.dart';
 
+import '../helpers/custom_text_decorator.dart';
+
 class WatchlistItemCard extends StatefulWidget {
   const WatchlistItemCard({
     Key? key,
@@ -46,22 +48,8 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
                 width: 15,
               ),
               MediaQuery.of(context).orientation == Orientation.portrait
-                  ? CircleAvatar(
-                      backgroundColor: Colors.black12,
-                      radius: 25,
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Text(
-                            widget.globalQuoteData.globalQuote.symbol,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w800),
-                          ),
-                        ),
-                      ),
-                    )
+                  ? CustomTextDecorator.stockLogo(
+                      widget.globalQuoteData.globalQuote.symbol, 25)
                   : const SizedBox(),
               const SizedBox(
                 width: 10,
@@ -74,42 +62,14 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        widget.stockName,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: 1,
-                            fontSize: 16),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
+                      CustomTextDecorator.stockTitleText(widget.stockName, 16),
                       const SizedBox(
                         height: 8,
                       ),
                       FittedBox(
                           fit: BoxFit.scaleDown,
-                          child: double.parse(widget
-                                      .globalQuoteData.globalQuote.change) >
-                                  0
-                              ? Text(
-                                  "+\$" +
-                                      widget.globalQuoteData.globalQuote.change,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14,
-                                      color: Colors.green,
-                                      letterSpacing: 0.5),
-                                )
-                              : Text(
-                                  "-\$" +
-                                      widget.globalQuoteData.globalQuote.change
-                                          .replaceAll(RegExp('-'), ''),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14,
-                                      color: Colors.red,
-                                      letterSpacing: 0.5),
-                                ))
+                          child: CustomTextDecorator.stockChangeText(
+                              widget.globalQuoteData.globalQuote.change))
                     ],
                   ),
                 ),
@@ -119,10 +79,8 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
               ),
               FittedBox(
                 fit: BoxFit.scaleDown,
-                child: Text(
-                  "\$" + (widget.globalQuoteData.globalQuote.price),
-                  style: const TextStyle(fontWeight: FontWeight.w500),
-                ),
+                child: CustomTextDecorator.stockPriceText(
+                    widget.globalQuoteData.globalQuote.price),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -136,7 +94,7 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
                     },
                     icon: const Icon(
                       Icons.delete,
-                      color: Color.fromARGB(255, 224, 125, 12),
+                      color: Colors.red,
                     )),
               )
             ],

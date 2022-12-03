@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stockee/helpers/custom_text_decorator.dart';
 import 'package:stockee/models/global_quote.dart';
 import 'package:stockee/models/stock_info.dart';
 
@@ -34,50 +35,20 @@ class DetailsHeader extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text(
-                '\$' + globalQuoteData.globalQuote.price,
-                style: const TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 18,
-                    color: Colors.black,
-                    letterSpacing: 0.5),
+              CustomTextDecorator.stockPriceText(
+                globalQuoteData.globalQuote.price,
               ),
               const SizedBox(
                 width: 10,
               ),
-              Text(
+              CustomTextDecorator.stockChangePercentText(
                 globalQuoteData.globalQuote.changePercent,
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                    color:
-                        globalQuoteData.globalQuote.changePercent.contains('-')
-                            ? Colors.red
-                            : Colors.green,
-                    letterSpacing: 0.5),
               ),
               const SizedBox(
                 width: 10,
               ),
-              double.parse(globalQuoteData.globalQuote.change) > 0
-                  ? Text(
-                      "+\$" + globalQuoteData.globalQuote.change,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: Colors.green,
-                          letterSpacing: 0.5),
-                    )
-                  : Text(
-                      "-\$" +
-                          globalQuoteData.globalQuote.change
-                              .replaceAll(RegExp('-'), ''),
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: Colors.red,
-                          letterSpacing: 0.5),
-                    )
+              CustomTextDecorator.stockChangeText(
+                  globalQuoteData.globalQuote.change)
             ],
           )
         ],

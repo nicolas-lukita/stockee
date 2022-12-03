@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:stockee/dashboard/dash_screen.dart';
 import 'package:stockee/dashboard/watchlist_item_card.dart';
-import 'package:stockee/helpers/stock_list_preferences.dart';
 import 'package:stockee/home_page/home_screen.dart';
 import 'package:stockee/search_page/stock_card.dart';
 import '../models/stock_listing.dart';

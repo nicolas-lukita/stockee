@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stockee/helpers/custom_text_decorator.dart';
 
 import 'balanced_table.dart';
 
@@ -28,12 +29,8 @@ class PortfolioWatchlistSection extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
+                    CustomTextDecorator.stockSymbolText(
                       userWatchlist[index]['symbol'],
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w800,
-                          color: Colors.grey,
-                          letterSpacing: 0.5),
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,52 +39,28 @@ class PortfolioWatchlistSection extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(
-                                userWatchlist[index]['name'],
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: 18,
-                                    color: Colors.black,
-                                    letterSpacing: 0.5),
-                              ),
-                              Text(
-                                '\$' +
-                                    globalQuoteDataList[index]
-                                        .globalQuote
-                                        .price,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w800,
-                                    color: Colors.black,
-                                    letterSpacing: 0.5),
-                              ),
+                              CustomTextDecorator.stockTitleText(
+                                  userWatchlist[index]['name'], 18),
+                              CustomTextDecorator.stockPriceText(
+                                  globalQuoteDataList[index].globalQuote.price),
                               const SizedBox(
                                 width: 10,
                               ),
-                              Text(
+                              CustomTextDecorator.stockChangePercentText(
                                 globalQuoteDataList[index]
                                     .globalQuote
                                     .changePercent,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.red,
-                                    letterSpacing: 0.5),
                               ),
                               const SizedBox(
                                 width: 10,
                               ),
-                              Text(
+                              CustomTextDecorator.stockChangeText(
                                 globalQuoteDataList[index].globalQuote.change,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.grey,
-                                    letterSpacing: 0.5),
-                              ),
+                              )
                             ],
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           height: 100,
                           child: BalancedTable(listKey: const [
                             "Open",

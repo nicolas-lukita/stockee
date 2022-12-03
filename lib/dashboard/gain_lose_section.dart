@@ -1,10 +1,33 @@
 import 'package:flutter/material.dart';
+import '../helpers/helper_functions.dart';
 import './square_info_card.dart';
 
-class GainLoseSection extends StatelessWidget {
-  const GainLoseSection({Key? key, required this.orientation})
-      : super(key: key);
+class GainLoseSection extends StatefulWidget {
+  const GainLoseSection({
+    Key? key,
+    required this.orientation,
+    required this.watchlist,
+    required this.globalQuoteDataList,
+  }) : super(key: key);
   final Orientation orientation;
+  final List watchlist;
+  final List globalQuoteDataList;
+
+  @override
+  State<GainLoseSection> createState() => _GainLoseSectionState();
+}
+
+class _GainLoseSectionState extends State<GainLoseSection> {
+  bool isLoading = true;
+  late List gainLoseData;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    gainLoseData = HelperFunctions.getGainLoseStock(widget.globalQuoteDataList);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +46,32 @@ class GainLoseSection extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Flexible(
-              child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: (orientation == Orientation.portrait) ? 2 : 1,
-              childAspectRatio: 1 / 1,
-            ),
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(15),
-            itemBuilder: (context, index) {
-              return SquareInfoCard();
-            },
-            itemCount: 2,
-          )),
+          Expanded(
+              child: widget.watchlist.isEmpty
+                  ? const Center(
+                      child: Text("Follow some stocks!"),
+                    )
+                  : GridView.builder(
+                      //not scrollable for portrait orientation
+                      physics: widget.orientation == Orientation.portrait
+                          ? const NeverScrollableScrollPhysics()
+                          : null,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        //display in a row when portrait, column when landscape
+                        crossAxisCount:
+                            widget.orientation == Orientation.portrait ? 2 : 1,
+                        childAspectRatio: 1 / 1,
+                      ),
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.all(15),
+                      itemBuilder: (context, index) {
+                        return gainLoseData.length != 2
+                            ? const Center(child: CircularProgressIndicator())
+                            : SquareInfoCard(
+                                globalQuoteData: gainLoseData[index]);
+                      },
+                      itemCount: 2,
+                    )),
         ]);
   }
 }

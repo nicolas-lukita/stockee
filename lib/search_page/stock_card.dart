@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:stockee/helpers/button_functions.dart';
+import 'package:stockee/helpers/custom_text_decorator.dart';
 
 class StockCard extends StatelessWidget {
   const StockCard(
@@ -32,22 +33,10 @@ class StockCard extends StatelessWidget {
                 height: 10,
               ),
               LayoutBuilder(builder: (context, constraints) {
-                return CircleAvatar(
-                  backgroundColor: Colors.black12,
-                  radius: min(
-                      constraints.maxHeight / 5.3, constraints.maxWidth / 5.3),
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Text(
-                        symbol,
-                        style: const TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.w800),
-                      ),
-                    ),
-                  ),
-                );
+                return CustomTextDecorator.stockLogo(
+                    symbol,
+                    min(constraints.maxHeight / 5.3,
+                        constraints.maxWidth / 5.3));
               }),
               const SizedBox(
                 height: 10,

@@ -21,18 +21,9 @@ class TabBarWrapper extends StatefulWidget {
 }
 
 class _TabBarWrapperState extends State<TabBarWrapper> {
-  // Future<List> getGlobalQuoteList(List watchlist) async {
-  //   List alist = [];
-  //   for (var item in watchlist) {
-  //     AlphaVantageApi().getGlobalQuote(item).then((res) {
-  //       alist.add(globalQuoteFromJson(res));
-  //     });
-  //   }
-  //   return Future<List>.value([...alist]);
-  // }
-
   List globalQuoteList = [];
   bool isLoading = false;
+  List gainLoseData = [];
 
   Future getGlobalQuoteList() async {
     print("GETGLOBALQUOTE FUNCTION RUN");
@@ -53,20 +44,29 @@ class _TabBarWrapperState extends State<TabBarWrapper> {
     print("GETGLOBALQUOTE FUNCTION END");
   }
 
-  // @override
-  // void initState() {
-  //   print("TAB BAR INITSTATE RUN");
-  //   super.initState();
-  //   getGlobalQuoteList().then((value) => setState(() {
-  //         isLoading = false;
-  //       }));
-  // }
+  getGainLoseStock() {
+    var gainer = globalQuoteList[0];
+    var loser = globalQuoteList[0];
+    for (var item in globalQuoteList) {
+      if (double.parse(item.globalQuote.change) >
+          double.parse(gainer.globalQuote.change)) {
+        gainer = item;
+      }
+      if (double.parse(item.globalQuote.change) <
+          double.parse(loser.globalQuote.change)) {
+        loser = item;
+      }
+    }
+    return [gainer, loser];
+  }
 
   @override
   void didChangeDependencies() {
     print("TAB BAR DIDCHANGEDEPENDENCY RUN");
     super.didChangeDependencies();
-    getGlobalQuoteList().then((value) => setState(() {
+    getGlobalQuoteList().then((value) {
+      gainLoseData = getGainLoseStock();
+    }).then((value) => setState(() {
           isLoading = false;
         }));
   }

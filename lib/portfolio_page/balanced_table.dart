@@ -36,10 +36,13 @@ class BalancedTable extends StatelessWidget {
                 height: 100,
                 width: 80,
                 child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: listKey.length,
                     itemBuilder: (context, index) {
-                      return Text("\$" + listValue[index],
+                      return Text(
+                          listKey[index] == "Volume"
+                              ? listValue[index]
+                              : "\$" + listValue[index],
                           style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.black54,

@@ -34,7 +34,7 @@ class _AlgoliaSearchPageState extends State<AlgoliaSearchPage> {
       apiKey: algoliaKey,
     );
 
-    AlgoliaQuery query = algolia.instance.index('stocks');
+    AlgoliaQuery query = algolia.instance.index('stocks_trimmed');
     query = query.search(_searchText.text);
 
     _results = (await query.getObjects()).hits;

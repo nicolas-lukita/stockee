@@ -47,7 +47,9 @@ class DetailsSection extends StatelessWidget {
                           const SizedBox(
                             height: 30,
                           ),
-                          const CandlestickChart(),
+                          CandlestickChart(
+                            symbol: globalQuoteData.globalQuote.symbol,
+                          ),
                           const SizedBox(
                             height: 15,
                           ),
@@ -87,7 +89,11 @@ class DetailsSection extends StatelessWidget {
                             const SizedBox(
                               width: 50,
                             ),
-                            const Expanded(flex: 3, child: CandlestickChart()),
+                            Expanded(
+                                flex: 3,
+                                child: CandlestickChart(
+                                    symbol:
+                                        globalQuoteData.globalQuote.symbol)),
                           ],
                         ),
                       );

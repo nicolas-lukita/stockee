@@ -21,13 +21,13 @@ class StockIntraday {
 
   factory StockIntraday.fromJson(Map<String, dynamic> json) => StockIntraday(
         metaData: MetaData.fromJson(json["Meta Data"]),
-        timeSeries15Min: Map.from(json["Time Series (15min)"]).map((k, v) =>
+        timeSeries15Min: Map.from(json["Time Series (5min)"]).map((k, v) =>
             MapEntry<String, TimeSeries15Min>(k, TimeSeries15Min.fromJson(v))),
       );
 
   Map<String, dynamic> toJson() => {
         "Meta Data": metaData.toJson(),
-        "Time Series (15min)": Map.from(timeSeries15Min)
+        "Time Series (5min)": Map.from(timeSeries15Min)
             .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
       };
 }

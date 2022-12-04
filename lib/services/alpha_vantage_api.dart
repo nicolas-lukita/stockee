@@ -29,7 +29,7 @@ class AlphaVantageApi {
     String interval = "15min";
 
     var url =
-        Uri.parse("$baseUrl$apiFunction&symbol=IBM&interval=15min&apikey=demo");
+        Uri.parse("$baseUrl$apiFunction&symbol=IBM&interval=5min&apikey=demo");
 
     // var url = Uri.parse(
     //     "$baseUrl$apiFunction&symbol=$symbol&interval=$interval&apikey=$alphavantageKey");

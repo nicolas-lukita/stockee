@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:stockee/helpers/custom_text_decorator.dart';
 import 'package:stockee/models/stock_info.dart';
 import '../models/global_quote.dart';
 import '../search_page/search_screen.dart';
@@ -43,13 +44,9 @@ class _WatchlistSectionState extends State<WatchlistSection> {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Text(
-              "Your Watchlist",
-              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
-            ),
-          ),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: CustomTextDecorator.sectionTitle("Your Watchlist")),
           const SizedBox(
             height: 10,
           ),

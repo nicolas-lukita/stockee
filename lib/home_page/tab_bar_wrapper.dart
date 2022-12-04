@@ -9,10 +9,12 @@ class TabBarWrapper extends StatefulWidget {
   const TabBarWrapper(
       {Key? key,
       required this.uid,
+      required this.username,
       required this.userWatchlist,
       required this.refreshHome})
       : super(key: key);
   final String uid;
+  final String username;
   final List userWatchlist;
   final Function() refreshHome;
 
@@ -87,6 +89,7 @@ class _TabBarWrapperState extends State<TabBarWrapper> {
             ),
             PortfolioScreen(
               uid: widget.uid,
+              username: widget.username,
               userWatchlist: widget.userWatchlist,
               globalQuoteDataList: globalQuoteList,
             )

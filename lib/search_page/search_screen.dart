@@ -21,7 +21,8 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  List<StockListing> _stockList = [];
+  List _stockList = [];
+  // List<StockListing> _stockList = [];
   var collectionRef = FirebaseFirestore.instance;
   bool isLoading = false;
 
@@ -29,18 +30,21 @@ class _SearchScreenState extends State<SearchScreen> {
   //  Use for fetching stock listing from firestore database
   //  (currently not in use because of high read request for spark plan)
   //============================================================================
-  // Future getStocksList() async {
-  //   isLoading = true;
-  //   await collectionRef.collection('stocks').get().then((snapshot) {
-  //     snapshot.docs.forEach((stockData) {
-  //       stockList.add(stockData);
-  //     });
-  //   }).then((value) => setState(() {
-  //         isLoading = false;
-  //       }));
-  // }
+  Future getStocksList() async {
+    isLoading = true;
+    await collectionRef.collection('stocks').get().then((snapshot) {
+      snapshot.docs.forEach((stockData) {
+        _stockList.add(stockData);
+      });
+    }).then((value) => setState(() {
+          isLoading = false;
+        }));
+  }
   //============================================================================
 
+  //============================================================================
+  //  Use local asset
+  //============================================================================
   Future readStockListing() async {
     setState(() {
       isLoading = true;
@@ -52,11 +56,20 @@ class _SearchScreenState extends State<SearchScreen> {
       isLoading = false;
     });
   }
+  //============================================================================
 
   @override
   void initState() {
     super.initState();
+    //=======================
+    //use local asset
     readStockListing();
+    //=======================
+
+    //=======================
+    //use firestore database
+    // getStocksList();
+    //=======================
   }
 
   @override
@@ -114,9 +127,23 @@ class _SearchScreenState extends State<SearchScreen> {
                                 (snapshot.data!.data() as Map)['watchlist'];
                             var newList = [...userWatchlist];
                             return StockCard(
+                                uid: _user.uid,
+                                //=============use firebase database=============
+                                // symbol: _stockList[index]['symbol'],
+                                // name: _stockList[index]['name'],
+                                // isFollowed: (newList.isNotEmpty &&
+                                //         newList.firstWhere(
+                                //                 (element) =>
+                                //                     element['symbol'] ==
+                                //                     _stockList[index]['symbol'],
+                                //                 orElse: () => null) !=
+                                //             null)
+                                //     ? true
+                                //     : false);
+
+                                //================use local asset================
                                 symbol: _stockList[index].symbol,
                                 name: _stockList[index].name,
-                                uid: _user.uid,
                                 isFollowed: (newList.isNotEmpty &&
                                         newList.firstWhere(
                                                 (element) =>

@@ -73,4 +73,11 @@ class CustomTextDecorator {
       ),
     );
   }
+
+  static Widget sectionTitle(String text) {
+    return Text(
+      text,
+      style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
+    );
+  }
 }

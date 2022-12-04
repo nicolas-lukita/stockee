@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stockee/helpers/custom_text_decorator.dart';
 import '../helpers/helper_functions.dart';
 import './square_info_card.dart';
 
@@ -36,13 +37,9 @@ class _GainLoseSectionState extends State<GainLoseSection> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Text(
-              "Gainers and Losers",
-              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
-            ),
-          ),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: CustomTextDecorator.sectionTitle("Gainers and Losers")),
           const SizedBox(
             height: 10,
           ),

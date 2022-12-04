@@ -8,10 +8,12 @@ class PortfolioScreen extends StatelessWidget {
   const PortfolioScreen(
       {Key? key,
       required this.uid,
+      required this.username,
       required this.userWatchlist,
       required this.globalQuoteDataList})
       : super(key: key);
   final String uid;
+  final String username;
   final List userWatchlist;
   final List globalQuoteDataList;
 
@@ -25,12 +27,15 @@ class PortfolioScreen extends StatelessWidget {
             return orientation == Orientation.portrait
                 ? Column(
                     children: <Widget>[
-                      OverviewSection(),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      // OverviewSection(
+                      //     username: username,
+                      //     globalQuoteDataList: globalQuoteDataList),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
                       Expanded(
                           child: PortfolioWatchlistSection(
+                        uid: uid,
                         userWatchlist: userWatchlist,
                         globalQuoteDataList: globalQuoteDataList,
                       ))
@@ -38,10 +43,15 @@ class PortfolioScreen extends StatelessWidget {
                   )
                 : Row(
                     children: <Widget>[
-                      Expanded(flex: 4, child: OverviewSection()),
+                      // Expanded(
+                      //     flex: 4,
+                      //     child: OverviewSection(
+                      //         username: username,
+                      //         globalQuoteDataList: globalQuoteDataList)),
                       Expanded(
                           flex: 6,
                           child: PortfolioWatchlistSection(
+                            uid: uid,
                             userWatchlist: userWatchlist,
                             globalQuoteDataList: globalQuoteDataList,
                           ))

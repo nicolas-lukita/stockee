@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
               if (snapshot.hasData) {
                 List userWatchlist =
                     (snapshot.data!.data() as Map)['watchlist'];
-
+                String username = (snapshot.data!.data() as Map)['username'];
                 //==========================================================================================
                 List globalQuoteDataList = [];
                 userWatchlist.forEach(
@@ -97,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 //==========================================================================================
                 return TabBarWrapper(
                   uid: _user.uid,
+                  username: username,
                   userWatchlist: userWatchlist,
                   refreshHome: refresh,
                 );

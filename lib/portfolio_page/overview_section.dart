@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:stockee/portfolio_page/overview_card.dart';
 
 class OverviewSection extends StatelessWidget {
-  const OverviewSection({Key? key}) : super(key: key);
+  const OverviewSection(
+      {Key? key, required this.globalQuoteDataList, required this.username})
+      : super(key: key);
+  final List globalQuoteDataList;
+  final String username;
 
   @override
   Widget build(BuildContext context) {
@@ -11,28 +16,7 @@ class OverviewSection extends StatelessWidget {
           height: 10,
         ),
         Text("Portfolio"),
-        Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: SizedBox(
-            width: double.infinity,
-            child: Row(
-              children: <Widget>[
-                const SizedBox(
-                  width: 15,
-                ),
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    'OVERVIEW DATA',
-                    style: const TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        OverviewCard(username: username)
       ],
     );
   }

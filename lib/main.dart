@@ -9,7 +9,6 @@ import 'package:stockee/services/firebase_auth_methods.dart';
 import './search_page/search_screen.dart';
 import './dashboard/dash_screen.dart';
 import './details_page/details_screen.dart';
-import 'dummy_data/test_page.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 

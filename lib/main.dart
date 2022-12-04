@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:stockee/authentication_page/login_screen.dart';
 import 'package:stockee/authentication_page/user_data_screen.dart';
 import 'package:stockee/home_page/home_screen.dart';
+import 'package:stockee/search_page/algolia_search_page.dart';
 import 'package:stockee/services/firebase_auth_methods.dart';
 import './search_page/search_screen.dart';
 import './dashboard/dash_screen.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
             LoginScreen.routeName: (context) => LoginScreen(),
             UserDataScreen.routeName: (context) => const UserDataScreen(),
             DetailsScreen.routeName: (context) => const DetailsScreen(),
+            AlgoliaSearchPage.routeName: (context) => const AlgoliaSearchPage(),
           }),
     );
   }

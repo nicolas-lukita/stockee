@@ -19,6 +19,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  TextEditingController _searchText = TextEditingController(text: "");
   List _stockList = [];
   // List<StockListing> _stockList = [];
   var collectionRef = FirebaseFirestore.instance;
@@ -94,7 +95,9 @@ class _SearchScreenState extends State<SearchScreen> {
         ],
       ),
       body: Column(children: <Widget>[
-        const SearchBar(),
+        SearchBar(
+          controller: _searchText,
+        ),
         isLoading
             ? const Center(
                 child: CircularProgressIndicator(),

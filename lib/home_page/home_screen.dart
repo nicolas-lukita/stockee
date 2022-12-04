@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stockee/dashboard/dash_screen.dart';
 import 'package:stockee/home_page/custom_navigation_bar.dart';
 import 'package:stockee/home_page/tab_bar_wrapper.dart';
-import 'package:stockee/portfolio_page/portfolio_screen.dart';
+import 'package:stockee/search_page/algolia_search_page.dart';
 import 'package:stockee/services/alpha_vantage_api.dart';
 import '../models/global_quote.dart';
 import '../search_page/search_screen.dart';
@@ -43,9 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          title: Text(
-            _user.uid,
-            style: const TextStyle(
+          title: const Text(
+            "Dashboard",
+            style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 35,
                 color: Colors.black,
@@ -54,8 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: <Widget>[
             IconButton(
               onPressed: () {
+                // Navigator.pushNamedAndRemoveUntil(
+                //     context, SearchScreen.routeName, (route) => false);
                 Navigator.pushNamedAndRemoveUntil(
-                    context, SearchScreen.routeName, (route) => false);
+                    context, AlgoliaSearchPage.routeName, (route) => false);
               },
               icon: const Icon(Icons.search),
               color: Colors.black,

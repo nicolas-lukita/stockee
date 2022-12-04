@@ -1,7 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:stockee/helpers/button_functions.dart';
 import 'package:stockee/helpers/custom_text_decorator.dart';
+
+import '../helpers/custom_buttons.dart';
 
 class StockCard extends StatelessWidget {
   const StockCard(
@@ -51,22 +52,9 @@ class StockCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(5),
                 child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      primary: isFollowed ? Colors.grey : Colors.black87,
-                    ),
-                    onPressed: () {
-                      ButtonFunctions.followButtonFunction(uid, symbol, name);
-                    },
-                    child: isFollowed
-                        ? const Text("Unfollow")
-                        : const Text("Follow"),
-                  ),
-                ),
+                    width: double.infinity,
+                    child: CustomButtons.followButton(
+                        uid, symbol, name, isFollowed, 18)),
               ),
             ],
           ),

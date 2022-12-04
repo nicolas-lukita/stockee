@@ -3,9 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:stockee/dashboard/dash_screen.dart';
-import 'package:stockee/dashboard/watchlist_item_card.dart';
-import 'package:stockee/home_page/home_screen.dart';
+import '../helpers/custom_buttons.dart';
 import 'package:stockee/search_page/stock_card.dart';
 import '../models/stock_listing.dart';
 import './search_bar.dart';
@@ -91,12 +89,7 @@ class _SearchScreenState extends State<SearchScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 15),
-            child: IconButton(
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, HomeScreen.routeName, (route) => false);
-                },
-                icon: const Icon(Icons.home)),
+            child: CustomButtons.homeButton(context),
           )
         ],
       ),

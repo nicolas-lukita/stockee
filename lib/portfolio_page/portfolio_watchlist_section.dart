@@ -1,10 +1,6 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:stockee/helpers/custom_text_decorator.dart';
 import 'package:stockee/portfolio_page/portfolio_watchlist_card.dart';
-
-import '../details_page/details_screen.dart';
-import 'balanced_table.dart';
 
 class PortfolioWatchlistSection extends StatelessWidget {
   const PortfolioWatchlistSection(
@@ -33,6 +29,7 @@ class PortfolioWatchlistSection extends StatelessWidget {
             itemBuilder: (context, index) {
               return PortfolioWatchlistCard(
                   uid: uid,
+                  watchlist: userWatchlist,
                   stockName: userWatchlist[index]['name'],
                   globalQuoteData: globalQuoteDataList[index]);
             },

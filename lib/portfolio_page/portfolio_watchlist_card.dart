@@ -10,21 +10,26 @@ class PortfolioWatchlistCard extends StatelessWidget {
       {Key? key,
       required this.uid,
       required this.stockName,
+      required this.watchlist,
       required this.globalQuoteData})
       : super(key: key);
   final String uid;
   final String stockName;
+  final List watchlist;
   final GlobalQuote globalQuoteData;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, DetailsScreen.routeName, arguments: {
-          'uid': uid,
-          'stockName': stockName,
-          'globalQuoteData': globalQuoteData,
-        });
+        Navigator.pushNamedAndRemoveUntil(
+            context, DetailsScreen.routeName, (route) => false,
+            arguments: {
+              'uid': uid,
+              'stockName': stockName,
+              'watchlist': watchlist,
+              'globalQuoteData': globalQuoteData,
+            });
       },
       child: Card(
           shape: RoundedRectangleBorder(

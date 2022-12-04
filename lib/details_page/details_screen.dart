@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:stockee/models/stock_info.dart';
+import 'package:stockee/helpers/custom_buttons.dart';
 import '../models/global_quote.dart';
 import '../news_page.dart/news_section.dart';
 import 'collapsed_panel_section.dart';
@@ -22,6 +22,7 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  //function to share the screenshot
   Future saveAndShare(Uint8List bytes) async {
     //1. set up directory to store image file
     final directory = await getApplicationDocumentsDirectory();
@@ -50,27 +51,27 @@ class _DetailsScreenState extends State<DetailsScreen> {
           backgroundColor: Colors.white,
           elevation: 0,
           actions: <Widget>[
+            IconButton(
+              onPressed: () async {
+                await _screenshotController
+                    .capture(delay: const Duration(milliseconds: 100))
+                    .then((value) async {
+                  saveAndShare(value!);
+                });
+              },
+              icon: const Icon(
+                Icons.share,
+                size: 25,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(right: 15),
-              child: IconButton(
-                onPressed: () async {
-                  final image = await _screenshotController
-                      .capture(delay: const Duration(milliseconds: 100))
-                      .then((value) async {
-                    saveAndShare(value!);
-                  });
-                },
-                icon: const Icon(
-                  Icons.share,
-                  size: 25,
-                ),
-              ),
+              child: CustomButtons.homeButton(context),
             )
           ],
         ),
         body: SlidingUpPanel(
           defaultPanelState: PanelState.CLOSED,
-          //if orientation landscape, hide panel so it will not block content (temporary solution)
           minHeight: 30,
           backdropEnabled: true,
           borderRadius: const BorderRadius.only(
@@ -82,11 +83,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
           collapsed: const CollapsedPanelSection(),
           //main content behind sliding up panel
           body: Padding(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             child: ConstrainedBox(
                 constraints: BoxConstraints(
                     maxHeight: MediaQuery.of(context).size.height),
                 child: DetailsSection(
+                  uid: uid,
                   stockName: stockName,
                   globalQuoteData: globalQuoteData,
                 )),

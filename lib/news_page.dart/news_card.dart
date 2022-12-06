@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stockee/helpers/app_colors.dart';
 import 'package:stockee/helpers/custom_date_time_formatter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,7 +23,7 @@ class NewsCard extends StatefulWidget {
 }
 
 class _NewsCardState extends State<NewsCard> {
-  Future<void>? _launched;
+  Future<void>? launched;
 
   Future<void> _launchInBrowser(Uri url) async {
     if (!await launchUrl(
@@ -41,7 +42,7 @@ class _NewsCardState extends State<NewsCard> {
       ),
       child: InkWell(
         onTap: () => setState(() {
-          _launched = _launchInBrowser(Uri.parse(widget.url));
+          launched = _launchInBrowser(Uri.parse(widget.url));
         }),
         child: Container(
           padding: const EdgeInsets.all(10),
@@ -54,7 +55,7 @@ class _NewsCardState extends State<NewsCard> {
                 width: 10,
               ),
               CircleAvatar(
-                backgroundColor: Colors.black54,
+                backgroundColor: AppColors.darkCream,
                 backgroundImage: NetworkImage(widget.image),
                 radius: 25,
               ),
@@ -72,7 +73,6 @@ class _NewsCardState extends State<NewsCard> {
                       style: const TextStyle(
                           fontWeight: FontWeight.w800,
                           fontSize: 16,
-                          color: Colors.black,
                           letterSpacing: 0),
                     ),
                     const SizedBox(

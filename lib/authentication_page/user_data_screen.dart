@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stockee/search_page/algolia_search_page.dart';
 import 'package:stockee/search_page/search_screen.dart';
 import '../services/firebase_auth_methods.dart';
 
@@ -19,7 +20,6 @@ class _UserDataScreenState extends State<UserDataScreen> {
   late User _user;
 
   Future addUserData(String uid, String username) async {
-    print("ADD USER DATA" + uid + username);
     Map<String, dynamic> data = {
       "uid": uid,
       "username": username,
@@ -34,10 +34,9 @@ class _UserDataScreenState extends State<UserDataScreen> {
 
   void _submitUserData() {
     //create new user in firestore
-    print("SUBMIT USER DATA" + _user.uid + _username);
     addUserData(_user.uid, _username);
     Navigator.pushNamedAndRemoveUntil(
-        context, SearchScreen.routeName, (route) => false);
+        context, AlgoliaSearchPage.routeName, (route) => false);
   }
 
   @override
@@ -46,7 +45,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
-          padding: EdgeInsets.all(32),
+          padding: const EdgeInsets.all(32),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[

@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stockee/helpers/app_colors.dart';
 import 'package:stockee/helpers/demo_mode.dart';
 import 'package:stockee/home_page/custom_navigation_bar.dart';
 import 'package:stockee/home_page/tab_bar_wrapper.dart';
 import 'package:stockee/search_page/algolia_search_page.dart';
 import 'package:stockee/services/alpha_vantage_api.dart';
 import '../models/global_quote.dart';
-import '../search_page/search_screen.dart';
 import '../services/firebase_auth_methods.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -27,30 +27,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("HOME SCREEN BUILD");
-    final _user = context.read<FirebaseAuthMethods>().user;
+    final user = context.read<FirebaseAuthMethods>().user;
     userDocStream = FirebaseFirestore.instance
         .collection('users')
-        .doc(_user.uid)
+        .doc(user.uid)
         .snapshots();
 
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: Colors.white.withOpacity(0.95),
         appBar: AppBar(
-          backgroundColor: Colors.white,
           elevation: 0,
           title: const Text(
             "Stockee",
             style: TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 35,
-                color: Colors.black,
-                letterSpacing: 0.5),
+                fontWeight: FontWeight.w800, fontSize: 35, letterSpacing: 0.5),
           ),
           actions: <Widget>[
             Switch(
+                activeColor: AppColors.teal,
                 value: DemoMode.isDemoMode,
                 onChanged: (newValue) {
                   setState(() {
@@ -63,7 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     context, AlgoliaSearchPage.routeName, (route) => false);
               },
               icon: const Icon(Icons.search),
-              color: Colors.black,
             ),
             Padding(
               padding: const EdgeInsets.only(right: 15),
@@ -78,7 +72,6 @@ class _HomeScreenState extends State<HomeScreen> {
         body: StreamBuilder<DocumentSnapshot>(
             stream: userDocStream,
             builder: (context, snapshot) {
-              print("STREAM BUILDER RUNNING");
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               }
@@ -86,22 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 List userWatchlist =
                     (snapshot.data!.data() as Map)['watchlist'];
                 String username = (snapshot.data!.data() as Map)['username'];
-                //==========================================================================================
-                List globalQuoteDataList = [];
-                userWatchlist.forEach(
-                  (element) async {
-                    var response = await AlphaVantageApi()
-                        .getGlobalQuote(element['symbol'])
-                        .catchError((err) {
-                      //error handling here later
-                    });
-                    final globalQuote = globalQuoteFromJson(response);
-                    globalQuoteDataList.add(globalQuote);
-                  },
-                );
-                //==========================================================================================
                 return TabBarWrapper(
-                  uid: _user.uid,
+                  uid: user.uid,
                   username: username,
                   userWatchlist: userWatchlist,
                   refreshHome: refresh,

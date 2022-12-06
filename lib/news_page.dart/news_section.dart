@@ -21,7 +21,6 @@ class _NewsSectionState extends State<NewsSection> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     newsSentiment = getNewsSentiment();
   }
@@ -41,7 +40,6 @@ class _NewsSectionState extends State<NewsSection> {
               style: const TextStyle(
                   fontWeight: FontWeight.w800,
                   fontSize: 25,
-                  color: Colors.black,
                   letterSpacing: 0.5),
             ),
           ),
@@ -54,7 +52,6 @@ class _NewsSectionState extends State<NewsSection> {
                       child: CircularProgressIndicator(),
                     );
                   }
-                  // return Text(snapshot.data!.feed[1].title);
                   return ListView.builder(
                     shrinkWrap: true,
                     padding: const EdgeInsets.symmetric(horizontal: 15),

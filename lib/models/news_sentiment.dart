@@ -39,7 +39,6 @@ class NewsSentiment extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props =>
       [items, sentimentScoreDefinition, relevanceScoreDefinition, feed];
 }
@@ -110,7 +109,6 @@ class Feed extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         title,
         url,
@@ -157,7 +155,6 @@ class TickerSentiment extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props =>
       [ticker, relevanceScore, tickerSentimentScore, tickerSentimentLabel];
 }
@@ -182,6 +179,5 @@ class Topic extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props => [topic, relevanceScore];
 }

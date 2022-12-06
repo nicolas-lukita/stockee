@@ -6,12 +6,16 @@ class HelperFunctions {
     var gainer = globalQuoteDataList[0];
     var loser = globalQuoteDataList[0];
     for (var item in globalQuoteDataList) {
-      if (double.parse(item.globalQuote.change) >
-          double.parse(gainer.globalQuote.change)) {
+      if (double.parse(
+              item.globalQuote.changePercent.replaceAll(RegExp('%'), '')) >
+          double.parse(
+              gainer.globalQuote.changePercent.replaceAll(RegExp('%'), ''))) {
         gainer = item;
       }
-      if (double.parse(item.globalQuote.change) <
-          double.parse(loser.globalQuote.change)) {
+      if (double.parse(
+              item.globalQuote.changePercent.replaceAll(RegExp('%'), '')) <
+          double.parse(
+              loser.globalQuote.changePercent.replaceAll(RegExp('%'), ''))) {
         loser = item;
       }
     }

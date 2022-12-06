@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:candlesticks/candlesticks.dart';
+import 'package:stockee/helpers/app_colors.dart';
 import 'package:stockee/models/stock_daily.dart';
 import 'package:stockee/models/stock_monthly.dart';
 import 'package:stockee/models/stock_weekly.dart';
 import 'package:stockee/services/alpha_vantage_api.dart';
-
 import '../models/stock_intraday.dart';
 
 const List<Widget> intervals = <Widget>[
@@ -112,6 +112,7 @@ class _CandlestickChartState extends State<CandlestickChart> {
       height: MediaQuery.of(context).orientation == Orientation.portrait
           ? MediaQuery.of(context).size.height * 0.45
           : MediaQuery.of(context).size.height * 0.6,
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: Column(children: <Widget>[
         ToggleButtons(
           onPressed: (int index) {
@@ -127,8 +128,8 @@ class _CandlestickChartState extends State<CandlestickChart> {
           borderRadius: const BorderRadius.all(Radius.circular(5)),
           renderBorder: false,
           selectedColor: Colors.white,
-          fillColor: Colors.blue[200],
-          color: Colors.blue[400],
+          fillColor: AppColors.teal,
+          color: AppColors.teal,
           constraints: const BoxConstraints(
             minHeight: 30.0,
             minWidth: 60.0,
@@ -138,7 +139,6 @@ class _CandlestickChartState extends State<CandlestickChart> {
         ),
         Expanded(child: Candlesticks(candles: sessionData[currentIndex]))
       ]),
-      color: Colors.white,
     );
   }
 }

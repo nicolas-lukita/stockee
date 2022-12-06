@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:stockee/helpers/app_colors.dart';
 import 'package:stockee/helpers/custom_text_decorator.dart';
-import '../search_page/search_screen.dart';
+import 'package:stockee/search_page/algolia_search_page.dart';
+import '../helpers/demo_mode.dart';
 import './watchlist_item_card.dart';
 
 class WatchlistSection extends StatefulWidget {
@@ -52,7 +54,7 @@ class _WatchlistSectionState extends State<WatchlistSection> {
                         borderRadius: BorderRadius.circular(20),
                         onTap: () {
                           Navigator.pushNamedAndRemoveUntil(context,
-                              SearchScreen.routeName, (route) => false);
+                              AlgoliaSearchPage.routeName, (route) => false);
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -62,10 +64,10 @@ class _WatchlistSectionState extends State<WatchlistSection> {
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 16,
-                                  color: Colors.blue[600]),
+                                  color: AppColors.teal),
                             ),
                             Icon(Icons.arrow_right_alt_rounded,
-                                color: Colors.blue[600])
+                                color: AppColors.teal)
                           ],
                         ),
                       ),
@@ -77,7 +79,12 @@ class _WatchlistSectionState extends State<WatchlistSection> {
                       itemBuilder: ((context, index) {
                         return WatchlistItemCard(
                           uid: widget.uid,
-                          stockName: widget.watchlist[index]['name'],
+                          stockName: DemoMode.isDemoMode
+                              ? widget.watchlist[index]['name']
+                              : widget.watchlist.firstWhere((element) =>
+                                  element['symbol'] ==
+                                  widget.globalQuoteDataList[index].globalQuote
+                                      .symbol)['name'],
                           globalQuoteData: widget.globalQuoteDataList[index],
                           refreshHome: widget.refreshHome,
                         );

@@ -33,7 +33,6 @@ class StockDaily extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props => [metaData, timeSeriesDaily];
 }
 
@@ -70,7 +69,6 @@ class MetaData extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props =>
       [information, symbol, lastRefreshed, outputSize, timeZone];
 }
@@ -120,7 +118,6 @@ class TimeSeriesDaily extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         open,
         high,

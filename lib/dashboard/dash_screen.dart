@@ -1,17 +1,7 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stockee/dashboard/gain_lose_section.dart';
 import 'package:stockee/dashboard/watchlist_section.dart';
-import 'package:stockee/search_page/search_screen.dart';
-import 'package:provider/provider.dart';
-import 'package:stockee/services/firebase_auth_methods.dart';
 
-import '../models/global_quote.dart';
-
-//CHANGE TO STATELESS!!
 class DashScreen extends StatefulWidget {
   static const routeName = '/dash-screen';
   const DashScreen(
@@ -33,7 +23,6 @@ class DashScreen extends StatefulWidget {
 class _DashScreenState extends State<DashScreen> {
   @override
   Widget build(BuildContext context) {
-    print("DASH SCREEN BUILD");
     return OrientationBuilder(builder: (ctx, orientation) {
       return orientation == Orientation.portrait
           ? Column(

@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:stockee/helpers/custom_text_decorator.dart';
-
 import '../helpers/custom_buttons.dart';
 
 class StockCard extends StatelessWidget {

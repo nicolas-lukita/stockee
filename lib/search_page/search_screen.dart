@@ -8,7 +8,6 @@ import 'package:stockee/search_page/stock_card.dart';
 import '../models/stock_listing.dart';
 import './search_bar.dart';
 import '../services/firebase_auth_methods.dart';
-import 'dart:convert';
 
 class SearchScreen extends StatefulWidget {
   static const routeName = '/search-screen';
@@ -20,25 +19,25 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _searchText = TextEditingController(text: "");
-  List _stockList = [];
-  // List<StockListing> _stockList = [];
   var collectionRef = FirebaseFirestore.instance;
   bool isLoading = false;
+  // List<StockListing> _stockList = [];
+  List _stockList = [];
 
   //============================================================================
   //  Use for fetching stock listing from firestore database
   //  (currently not in use because of high read request for spark plan)
   //============================================================================
-  Future getStocksList() async {
-    isLoading = true;
-    await collectionRef.collection('stocks').get().then((snapshot) {
-      snapshot.docs.forEach((stockData) {
-        _stockList.add(stockData);
-      });
-    }).then((value) => setState(() {
-          isLoading = false;
-        }));
-  }
+  // Future getStocksList() async {
+  //   isLoading = true;
+  //   await collectionRef.collection('stocks').get().then((snapshot) {
+  //     snapshot.docs.forEach((stockData) {
+  //       _stockList.add(stockData);
+  //     });
+  //   }).then((value) => setState(() {
+  //         isLoading = false;
+  //       }));
+  // }
   //============================================================================
 
   //============================================================================

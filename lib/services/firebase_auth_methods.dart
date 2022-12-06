@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stockee/authentication_page/login_screen.dart';
-
 import '../authentication_page/otp_screen.dart';
 
 class FirebaseAuthMethods {

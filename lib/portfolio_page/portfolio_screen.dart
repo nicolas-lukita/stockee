@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stockee/portfolio_page/balanced_table.dart';
 import 'package:stockee/portfolio_page/portfolio_watchlist_section.dart';
-
-import 'overview_section.dart';
 
 class PortfolioScreen extends StatelessWidget {
   const PortfolioScreen(
@@ -27,12 +24,6 @@ class PortfolioScreen extends StatelessWidget {
             return orientation == Orientation.portrait
                 ? Column(
                     children: <Widget>[
-                      // OverviewSection(
-                      //     username: username,
-                      //     globalQuoteDataList: globalQuoteDataList),
-                      // SizedBox(
-                      //   height: 20,
-                      // ),
                       Expanded(
                           child: PortfolioWatchlistSection(
                         uid: uid,
@@ -43,11 +34,6 @@ class PortfolioScreen extends StatelessWidget {
                   )
                 : Row(
                     children: <Widget>[
-                      // Expanded(
-                      //     flex: 4,
-                      //     child: OverviewSection(
-                      //         username: username,
-                      //         globalQuoteDataList: globalQuoteDataList)),
                       Expanded(
                           flex: 6,
                           child: PortfolioWatchlistSection(

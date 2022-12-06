@@ -12,12 +12,13 @@ class AlphaVantageApi {
   Future<dynamic> getGlobalQuote(String symbol) async {
     String apiFunction = "function=GLOBAL_QUOTE";
 
-    var url = Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo");
+    //demo
+    // var url = Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo");
 
-    // var url = DemoMode.isDemoMode
-    // ? Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo")
-    // : Uri.parse(
-    //     "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
+    var url = DemoMode.isDemoMode
+        ? Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo")
+        : Uri.parse(
+            "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
 
     var response = await client.get(url);
     if (response.statusCode == 200) {
@@ -31,13 +32,14 @@ class AlphaVantageApi {
     String apiFunction = "function=TIME_SERIES_INTRADAY";
     String interval = "15min";
 
-    var url =
-        Uri.parse("$baseUrl$apiFunction&symbol=IBM&interval=5min&apikey=demo");
+    //demo
+    // var url =
+    //     Uri.parse("$baseUrl$apiFunction&symbol=IBM&interval=5min&apikey=demo");
 
-    // var url = DemoMode.isDemoMode
-    // ?Uri.parse("$baseUrl$apiFunction&symbol=IBM&interval=5min&apikey=demo")
-    // :Uri.parse(
-    //     "$baseUrl$apiFunction&symbol=$symbol&interval=$interval&apikey=$alphavantageKey");
+    var url = DemoMode.isDemoMode
+        ? Uri.parse("$baseUrl$apiFunction&symbol=IBM&interval=5min&apikey=demo")
+        : Uri.parse(
+            "$baseUrl$apiFunction&symbol=$symbol&interval=$interval&apikey=$alphavantageKey");
 
     var response = await client.get(url);
     if (response.statusCode == 200) {
@@ -50,12 +52,13 @@ class AlphaVantageApi {
   Future<dynamic> getDaily(String symbol) async {
     String apiFunction = "function=TIME_SERIES_DAILY_ADJUSTED";
 
-    var url = Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo");
+    //demo
+    // var url = Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo");
 
-    // var url = DemoMode.isDemoMode
-    // ?Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo")
-    // :Uri.parse(
-    //     "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
+    var url = DemoMode.isDemoMode
+        ? Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo")
+        : Uri.parse(
+            "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
 
     var response = await client.get(url);
     if (response.statusCode == 200) {
@@ -68,12 +71,13 @@ class AlphaVantageApi {
   Future<dynamic> getWeekly(String symbol) async {
     String apiFunction = "function=TIME_SERIES_WEEKLY_ADJUSTED";
 
-    var url = Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo");
+    //demo
+    // var url = Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo");
 
-    // var url = DemoMode.isDemoMode
-    // ? Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo")
-    // :Uri.parse(
-    //     "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
+    var url = DemoMode.isDemoMode
+        ? Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo")
+        : Uri.parse(
+            "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
 
     var response = await client.get(url);
     if (response.statusCode == 200) {
@@ -86,11 +90,13 @@ class AlphaVantageApi {
   Future<dynamic> getMonthly(String symbol) async {
     String apiFunction = "function=TIME_SERIES_MONTHLY_ADJUSTED";
 
-    var url = Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo");
+    //demo
+    // var url = Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo");
 
-    // var url = DemoMode.isDemoMode
-    // Uri.parse(
-    //     "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
+    var url = DemoMode.isDemoMode
+        ? Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo")
+        : Uri.parse(
+            "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
 
     var response = await client.get(url);
     if (response.statusCode == 200) {
@@ -103,14 +109,15 @@ class AlphaVantageApi {
   Future<dynamic> getNewsSentiment(String symbol) async {
     String apiFunction = "function=NEWS_SENTIMENT";
 
-    var url = Uri.parse(
-        "$baseUrl$apiFunction&tickers=AAPL&topics=technology&apikey=demo");
+    //demo
+    // var url = Uri.parse(
+    //     "$baseUrl$apiFunction&tickers=AAPL&topics=technology&apikey=demo");
 
-    // var url = DemoMode.isDemoMode
-    //     ? Uri.parse(
-    //         "$baseUrl$apiFunction&tickers=AAPL&topics=technology&apikey=demo")
-    //     : Uri.parse(
-    //         "$baseUrl$apiFunction&tickers=$symbol&apikey=$alphavantageKey");
+    var url = DemoMode.isDemoMode
+        ? Uri.parse(
+            "$baseUrl$apiFunction&tickers=AAPL&topics=technology&apikey=demo")
+        : Uri.parse(
+            "$baseUrl$apiFunction&tickers=$symbol&apikey=$alphavantageKey");
 
     var response = await client.get(url);
     if (response.statusCode == 200) {

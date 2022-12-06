@@ -40,7 +40,6 @@ class StockIntraday extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props => [metaData, timeSeries15Min];
 }
 
@@ -80,7 +79,6 @@ class MetaData extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props =>
       [information, symbol, lastRefreshed, interval, outputSize, timeZone];
 }

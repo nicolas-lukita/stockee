@@ -20,15 +20,7 @@ class GainLoseSection extends StatefulWidget {
 
 class _GainLoseSectionState extends State<GainLoseSection> {
   bool isLoading = true;
-  late List gainLoseData;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    gainLoseData = HelperFunctions.getGainLoseStock(widget.globalQuoteDataList);
-    setState(() {});
-  }
+  List gainLoseData = [];
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +54,10 @@ class _GainLoseSectionState extends State<GainLoseSection> {
                       shrinkWrap: true,
                       padding: const EdgeInsets.all(15),
                       itemBuilder: (context, index) {
-                        return gainLoseData.length != 2
-                            ? const Center(child: CircularProgressIndicator())
-                            : SquareInfoCard(
-                                globalQuoteData: gainLoseData[index]);
+                        gainLoseData = HelperFunctions.getGainLoseStock(
+                            widget.globalQuoteDataList);
+                        return SquareInfoCard(
+                            globalQuoteData: gainLoseData[index]);
                       },
                       itemCount: 2,
                     )),

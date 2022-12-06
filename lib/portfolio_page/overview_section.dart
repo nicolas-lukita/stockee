@@ -12,10 +12,10 @@ class OverviewSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        Text("Portfolio"),
+        const Text("Portfolio"),
         OverviewCard(username: username)
       ],
     );

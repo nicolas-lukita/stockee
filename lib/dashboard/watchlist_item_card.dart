@@ -3,7 +3,6 @@ import 'package:stockee/details_page/details_screen.dart';
 import 'package:stockee/helpers/button_functions.dart';
 import 'package:stockee/helpers/demo_mode.dart';
 import 'package:stockee/models/global_quote.dart';
-
 import '../helpers/custom_text_decorator.dart';
 
 class WatchlistItemCard extends StatefulWidget {

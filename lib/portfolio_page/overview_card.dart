@@ -21,20 +21,20 @@ class OverviewCard extends StatelessWidget {
               FittedBox(
                   fit: BoxFit.scaleDown,
                   child: CustomTextDecorator.stockTitleText(username, 16)),
-              Text("Best performing:"),
+              const Text("Best performing:"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
+                children: const <Widget>[
                   Text('[sbl]'),
                   Text('Stock Name '),
                   Text('Price '),
                   Text('change percent')
                 ],
               ),
-              Text('Worst performaing:'),
+              const Text('Worst performaing:'),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[Text('[sbl]'), Text('Stock Name')],
+                children: const <Widget>[Text('[sbl]'), Text('Stock Name')],
               ),
             ],
           ),

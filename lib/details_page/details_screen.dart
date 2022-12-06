@@ -41,19 +41,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
     final String stockName = args['stockName'];
     final GlobalQuote globalQuoteData = args['globalQuoteData'];
 
-    ScreenshotController _screenshotController = ScreenshotController();
+    ScreenshotController screenshotController = ScreenshotController();
 
     return Screenshot(
-      controller: _screenshotController,
+      controller: screenshotController,
       child: Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           elevation: 0,
           actions: <Widget>[
             IconButton(
               onPressed: () async {
-                await _screenshotController
+                await screenshotController
                     .capture(delay: const Duration(milliseconds: 100))
                     .then((value) async {
                   saveAndShare(value!);
@@ -71,6 +70,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           ],
         ),
         body: SlidingUpPanel(
+          color: Theme.of(context).scaffoldBackgroundColor,
           defaultPanelState: PanelState.CLOSED,
           minHeight: 30,
           backdropEnabled: true,

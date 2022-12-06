@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stockee/helpers/custom_text_decorator.dart';
+import 'package:stockee/helpers/demo_mode.dart';
 import 'package:stockee/portfolio_page/portfolio_watchlist_card.dart';
 
 class PortfolioWatchlistSection extends StatelessWidget {
@@ -30,7 +31,13 @@ class PortfolioWatchlistSection extends StatelessWidget {
               return PortfolioWatchlistCard(
                   uid: uid,
                   watchlist: userWatchlist,
-                  stockName: userWatchlist[index]['name'],
+                  stockName: DemoMode.isDemoMode
+                      ? userWatchlist[index]['name']
+                      : userWatchlist.firstWhere((element) =>
+                          element['symbol'] ==
+                          globalQuoteDataList[index]
+                              .globalQuote
+                              .symbol)['name'],
                   globalQuoteData: globalQuoteDataList[index]);
             },
           ),

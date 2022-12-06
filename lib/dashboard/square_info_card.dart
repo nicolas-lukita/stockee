@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stockee/helpers/custom_text_decorator.dart';
-
 import '../models/global_quote.dart';
 
 class SquareInfoCard extends StatelessWidget {
@@ -22,7 +21,6 @@ class SquareInfoCard extends StatelessWidget {
           children: <Widget>[
             CustomTextDecorator.stockLogo(
                 globalQuoteData.globalQuote.symbol, 30),
-            //Fittedbox to avoid overflow
             FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
@@ -37,12 +35,22 @@ class SquareInfoCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                CustomTextDecorator.stockChangePercentText(
-                    globalQuoteData.globalQuote.changePercent),
-                CustomTextDecorator.stockChangeText(
-                    globalQuoteData.globalQuote.change),
+                Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: CustomTextDecorator.stockChangePercentText(
+                        globalQuoteData.globalQuote.changePercent),
+                  ),
+                ),
+                Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: CustomTextDecorator.stockChangeText(
+                        globalQuoteData.globalQuote.change),
+                  ),
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),

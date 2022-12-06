@@ -35,7 +35,6 @@ class StockMonthly extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props => [metaData, monthlyAdjustedTimeSeries];
 }
 
@@ -68,7 +67,6 @@ class MetaData extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props => [information, symbol, lastRefreshed, timeZone];
 }
 
@@ -113,7 +111,6 @@ class MonthlyAdjustedTimeSery extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props =>
       [open, high, low, close, adjustedClose, volume, dividendAmount];
 }

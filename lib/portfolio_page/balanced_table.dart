@@ -14,25 +14,23 @@ class BalancedTable extends StatelessWidget {
         : Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
+              SizedBox(
                 height: 100,
                 width: 60,
                 child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: listKey.length,
                     itemBuilder: (context, index) {
-                      return Text(listKey[index] + ": ",
+                      return Text("${listKey[index]}: ",
                           textAlign: TextAlign.end,
                           style: const TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black,
-                              letterSpacing: 0.5));
+                              fontWeight: FontWeight.w700, letterSpacing: 0.5));
                     }),
               ),
               const SizedBox(
                 width: 5,
               ),
-              Container(
+              SizedBox(
                 height: 100,
                 width: 80,
                 child: ListView.builder(
@@ -42,7 +40,7 @@ class BalancedTable extends StatelessWidget {
                       return Text(
                           listKey[index] == "Volume"
                               ? listValue[index]
-                              : "\$" + listValue[index],
+                              : "\$${listValue[index]}",
                           style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.black54,

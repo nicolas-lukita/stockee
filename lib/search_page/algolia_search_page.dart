@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:stockee/search_page/search_bar.dart';
 import 'package:stockee/search_page/stock_card.dart';
 import 'package:stockee/services/api_key.dart';
-
 import '../helpers/custom_buttons.dart';
 import '../services/firebase_auth_methods.dart';
 
@@ -49,17 +48,12 @@ class _AlgoliaSearchPageState extends State<AlgoliaSearchPage> {
     final User user = context.read<FirebaseAuthMethods>().user;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white.withOpacity(0.95),
       appBar: AppBar(
-        backgroundColor: Colors.white,
         elevation: 0,
         title: const Text(
           "Stocks",
           style: TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 35,
-              color: Colors.black,
-              letterSpacing: 0.5),
+              fontWeight: FontWeight.w800, fontSize: 35, letterSpacing: 0.5),
         ),
         actions: [
           Padding(
@@ -68,99 +62,76 @@ class _AlgoliaSearchPageState extends State<AlgoliaSearchPage> {
           )
         ],
       ),
-      body: Container(
-        // padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 16, top: 16, bottom: 16, right: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: SearchBar(
-                      controller: _searchText,
-                    ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 16, top: 16, bottom: 16, right: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: SearchBar(
+                    controller: _searchText,
                   ),
-                  IconButton(onPressed: _search, icon: const Icon(Icons.send))
-                ],
-              ),
-            ),
-            Expanded(
-                child: _searching == true
-                    ? const Center(
-                        child: Text("Searching..."),
-                      )
-                    : _results.isEmpty
-                        ? const Center(
-                            child: Text("No results found..."),
-                          )
-                        : GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount:
-                                  (MediaQuery.of(context).orientation ==
-                                          Orientation.portrait)
-                                      ? 2
-                                      : 3,
-                              childAspectRatio: 1 / 1,
-                            ),
-                            //itemCount: _results.length,
-                            itemBuilder: (BuildContext ctx, int index) {
-                              AlgoliaObjectSnapshot snap = _results[index];
-                              return StreamBuilder<DocumentSnapshot>(
-                                  stream: collectionRef
-                                      .collection('users')
-                                      .doc(user.uid)
-                                      .snapshots(),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      var userWatchlist = (snapshot.data!.data()
-                                          as Map)['watchlist'];
-                                      var newList = [...userWatchlist];
-                                      return StockCard(
-                                          uid: user.uid,
-                                          symbol: snap.data["symbol"],
-                                          name: snap.data["name"],
-                                          isFollowed: (newList.isNotEmpty &&
-                                                  newList.firstWhere(
-                                                          (element) =>
-                                                              element[
-                                                                  'symbol'] ==
-                                                              snap.data[
-                                                                  "symbol"],
-                                                          orElse: () => null) !=
-                                                      null)
-                                              ? true
-                                              : false);
-                                    } else {
-                                      return const Center(
-                                          child: CircularProgressIndicator());
-                                    }
-                                  });
-                            })
-
-                // : ListView.builder(
-                //     itemCount: _results.length,
-                //     itemBuilder: (BuildContext ctx, int index) {
-                //       AlgoliaObjectSnapshot snap = _results[index];
-
-                //       return ListTile(
-                //         leading: CircleAvatar(
-                //           child: Text(
-                //             (index + 1).toString(),
-                //           ),
-                //         ),
-                //         title: Text(snap.data["symbol"]),
-                //         subtitle: Text(snap.data["name"]),
-                //       );
-                //     },
-                //   ),
                 ),
-          ],
-        ),
+                IconButton(onPressed: _search, icon: const Icon(Icons.send))
+              ],
+            ),
+          ),
+          Expanded(
+              child: _searching == true
+                  ? const Center(
+                      child: Text("Searching..."),
+                    )
+                  : _results.isEmpty
+                      ? const Center(
+                          child: Text("No results found..."),
+                        )
+                      : GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount:
+                                (MediaQuery.of(context).orientation ==
+                                        Orientation.portrait)
+                                    ? 2
+                                    : 3,
+                            childAspectRatio: 1 / 1,
+                          ),
+                          itemCount: _results.length,
+                          itemBuilder: (BuildContext ctx, int index) {
+                            AlgoliaObjectSnapshot snap = _results[index];
+                            return StreamBuilder<DocumentSnapshot>(
+                                stream: collectionRef
+                                    .collection('users')
+                                    .doc(user.uid)
+                                    .snapshots(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    var userWatchlist = (snapshot.data!.data()
+                                        as Map)['watchlist'];
+                                    var newList = [...userWatchlist];
+                                    return StockCard(
+                                        uid: user.uid,
+                                        symbol: snap.data["symbol"],
+                                        name: snap.data["name"],
+                                        isFollowed: (newList.isNotEmpty &&
+                                                newList.firstWhere(
+                                                        (element) =>
+                                                            element['symbol'] ==
+                                                            snap.data["symbol"],
+                                                        orElse: () => null) !=
+                                                    null)
+                                            ? true
+                                            : false);
+                                  } else {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  }
+                                });
+                          })),
+        ],
       ),
     );
   }

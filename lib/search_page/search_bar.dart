@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stockee/helpers/app_colors.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({Key? key, required this.controller}) : super(key: key);
@@ -7,9 +8,8 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      color: const Color(0x54FFFFFF),
-      child: Container(
+      color: AppColors.lightCream,
+      child: SizedBox(
         width: double.infinity,
         child: TextField(
           controller: controller,

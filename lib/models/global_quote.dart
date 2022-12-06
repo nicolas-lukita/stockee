@@ -27,7 +27,6 @@ class GlobalQuote extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props => [globalQuote];
 }
 
@@ -85,7 +84,6 @@ class GlobalQuoteClass extends Equatable {
       };
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         symbol,
         open,

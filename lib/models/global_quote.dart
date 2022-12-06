@@ -2,6 +2,7 @@
 //
 //     final globalQuote = globalQuoteFromJson(jsonString);
 
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -10,7 +11,7 @@ GlobalQuote globalQuoteFromJson(String str) =>
 
 String globalQuoteToJson(GlobalQuote data) => json.encode(data.toJson());
 
-class GlobalQuote {
+class GlobalQuote extends Equatable {
   GlobalQuote({
     required this.globalQuote,
   });
@@ -24,9 +25,13 @@ class GlobalQuote {
   Map<String, dynamic> toJson() => {
         "Global Quote": globalQuote.toJson(),
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [globalQuote];
 }
 
-class GlobalQuoteClass {
+class GlobalQuoteClass extends Equatable {
   GlobalQuoteClass({
     required this.symbol,
     required this.open,
@@ -78,4 +83,19 @@ class GlobalQuoteClass {
         "09. change": change,
         "10. change percent": changePercent,
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [
+        symbol,
+        open,
+        high,
+        low,
+        price,
+        volume,
+        latestTradingDay,
+        previousClose,
+        change,
+        changePercent
+      ];
 }

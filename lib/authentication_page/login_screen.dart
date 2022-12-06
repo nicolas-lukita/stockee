@@ -99,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: SizedBox(
                               width: 100,
                               child: ElevatedButton(
+                                key: const Key('signIn'),
                                 style: ElevatedButton.styleFrom(
                                   primary: Colors.black,
                                 ),

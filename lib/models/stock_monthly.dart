@@ -2,6 +2,7 @@
 //
 //     final stockMonthly = stockMonthlyFromJson(jsonString);
 
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -10,7 +11,7 @@ StockMonthly stockMonthlyFromJson(String str) =>
 
 String stockMonthlyToJson(StockMonthly data) => json.encode(data.toJson());
 
-class StockMonthly {
+class StockMonthly extends Equatable {
   StockMonthly({
     required this.metaData,
     required this.monthlyAdjustedTimeSeries,
@@ -32,9 +33,13 @@ class StockMonthly {
         "Monthly Adjusted Time Series": Map.from(monthlyAdjustedTimeSeries)
             .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [metaData, monthlyAdjustedTimeSeries];
 }
 
-class MetaData {
+class MetaData extends Equatable {
   MetaData({
     required this.information,
     required this.symbol,
@@ -61,9 +66,13 @@ class MetaData {
             "${lastRefreshed.year.toString().padLeft(4, '0')}-${lastRefreshed.month.toString().padLeft(2, '0')}-${lastRefreshed.day.toString().padLeft(2, '0')}",
         "4. Time Zone": timeZone,
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [information, symbol, lastRefreshed, timeZone];
 }
 
-class MonthlyAdjustedTimeSery {
+class MonthlyAdjustedTimeSery extends Equatable {
   MonthlyAdjustedTimeSery({
     required this.open,
     required this.high,
@@ -102,4 +111,9 @@ class MonthlyAdjustedTimeSery {
         "6. volume": volume,
         "7. dividend amount": dividendAmount,
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props =>
+      [open, high, low, close, adjustedClose, volume, dividendAmount];
 }

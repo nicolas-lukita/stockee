@@ -2,6 +2,7 @@
 //
 //     final newsSentiment = newsSentimentFromJson(jsonString);
 
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -10,7 +11,7 @@ NewsSentiment newsSentimentFromJson(String str) =>
 
 String newsSentimentToJson(NewsSentiment data) => json.encode(data.toJson());
 
-class NewsSentiment {
+class NewsSentiment extends Equatable {
   NewsSentiment({
     required this.items,
     required this.sentimentScoreDefinition,
@@ -36,9 +37,14 @@ class NewsSentiment {
         "relevance_score_definition": relevanceScoreDefinition,
         "feed": List<dynamic>.from(feed.map((x) => x.toJson())),
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props =>
+      [items, sentimentScoreDefinition, relevanceScoreDefinition, feed];
 }
 
-class Feed {
+class Feed extends Equatable {
   Feed({
     required this.title,
     required this.url,
@@ -102,9 +108,27 @@ class Feed {
         "ticker_sentiment":
             List<dynamic>.from(tickerSentiment.map((x) => x.toJson())),
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [
+        title,
+        url,
+        timePublished,
+        authors,
+        summary,
+        bannerImage,
+        source,
+        categoryWithinSource,
+        sourceDomain,
+        topics,
+        overallSentimentScore,
+        overallSentimentLabel,
+        tickerSentiment
+      ];
 }
 
-class TickerSentiment {
+class TickerSentiment extends Equatable {
   TickerSentiment({
     required this.ticker,
     required this.relevanceScore,
@@ -131,9 +155,14 @@ class TickerSentiment {
         "ticker_sentiment_score": tickerSentimentScore,
         "ticker_sentiment_label": tickerSentimentLabel,
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props =>
+      [ticker, relevanceScore, tickerSentimentScore, tickerSentimentLabel];
 }
 
-class Topic {
+class Topic extends Equatable {
   Topic({
     required this.topic,
     required this.relevanceScore,
@@ -151,4 +180,8 @@ class Topic {
         "topic": topic,
         "relevance_score": relevanceScore,
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [topic, relevanceScore];
 }

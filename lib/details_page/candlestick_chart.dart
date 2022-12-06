@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:candlesticks/candlesticks.dart';
 import 'package:stockee/models/stock_daily.dart';
-import 'package:stockee/models/stock_mothly.dart';
+import 'package:stockee/models/stock_monthly.dart';
 import 'package:stockee/models/stock_weekly.dart';
 import 'package:stockee/services/alpha_vantage_api.dart';
 

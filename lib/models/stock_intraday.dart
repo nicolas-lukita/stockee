@@ -2,6 +2,7 @@
 //
 //     final stockIntraday = stockIntradayFromJson(jsonString);
 
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -10,7 +11,7 @@ StockIntraday stockIntradayFromJson(String str) =>
 
 String stockIntradayToJson(StockIntraday data) => json.encode(data.toJson());
 
-class StockIntraday {
+class StockIntraday extends Equatable {
   StockIntraday({
     required this.metaData,
     required this.timeSeries15Min,
@@ -21,7 +22,7 @@ class StockIntraday {
 
   factory StockIntraday.fromJson(Map<String, dynamic> json) => StockIntraday(
         metaData: MetaData.fromJson(json["Meta Data"]),
-        timeSeries15Min: Map.from(json["Time Series (5min)"]).map((k, v) =>
+        timeSeries15Min: Map.from(json["Time Series (15min)"]).map((k, v) =>
             MapEntry<String, TimeSeries15Min>(k, TimeSeries15Min.fromJson(v))),
       );
 
@@ -30,9 +31,13 @@ class StockIntraday {
         "Time Series (5min)": Map.from(timeSeries15Min)
             .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [metaData, timeSeries15Min];
 }
 
-class MetaData {
+class MetaData extends Equatable {
   MetaData({
     required this.information,
     required this.symbol,
@@ -66,9 +71,14 @@ class MetaData {
         "5. Output Size": outputSize,
         "6. Time Zone": timeZone,
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props =>
+      [information, symbol, lastRefreshed, interval, outputSize, timeZone];
 }
 
-class TimeSeries15Min {
+class TimeSeries15Min extends Equatable {
   TimeSeries15Min({
     required this.open,
     required this.high,
@@ -99,4 +109,8 @@ class TimeSeries15Min {
         "4. close": close,
         "5. volume": volume,
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [open, high, low, close, volume];
 }

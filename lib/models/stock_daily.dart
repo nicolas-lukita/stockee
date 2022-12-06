@@ -2,6 +2,7 @@
 //
 //     final stockDaily = stockDailyFromJson(jsonString);
 
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -10,7 +11,7 @@ StockDaily stockDailyFromJson(String str) =>
 
 String stockDailyToJson(StockDaily data) => json.encode(data.toJson());
 
-class StockDaily {
+class StockDaily extends Equatable {
   StockDaily({
     required this.metaData,
     required this.timeSeriesDaily,
@@ -30,9 +31,13 @@ class StockDaily {
         "Time Series (Daily)": Map.from(timeSeriesDaily)
             .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [metaData, timeSeriesDaily];
 }
 
-class MetaData {
+class MetaData extends Equatable {
   MetaData({
     required this.information,
     required this.symbol,
@@ -63,9 +68,14 @@ class MetaData {
         "4. Output Size": outputSize,
         "5. Time Zone": timeZone,
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props =>
+      [information, symbol, lastRefreshed, outputSize, timeZone];
 }
 
-class TimeSeriesDaily {
+class TimeSeriesDaily extends Equatable {
   TimeSeriesDaily({
     required this.open,
     required this.high,
@@ -108,4 +118,17 @@ class TimeSeriesDaily {
         "7. dividend amount": dividendAmount,
         "8. split coefficient": splitCoefficient,
       };
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [
+        open,
+        high,
+        low,
+        close,
+        adjustedClose,
+        volume,
+        dividendAmount,
+        splitCoefficient
+      ];
 }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stockee/helpers/demo_mode.dart';
 import 'package:stockee/home_page/custom_navigation_bar.dart';
 import 'package:stockee/home_page/tab_bar_wrapper.dart';
 import 'package:stockee/search_page/algolia_search_page.dart';
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.white,
           elevation: 0,
           title: const Text(
-            "Dashboard",
+            "Stockee",
             style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 35,
@@ -49,10 +50,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 letterSpacing: 0.5),
           ),
           actions: <Widget>[
+            Switch(
+                value: DemoMode.isDemoMode,
+                onChanged: (newValue) {
+                  setState(() {
+                    DemoMode.toggleDemoMode();
+                  });
+                }),
             IconButton(
               onPressed: () {
-                // Navigator.pushNamedAndRemoveUntil(
-                //     context, SearchScreen.routeName, (route) => false);
                 Navigator.pushNamedAndRemoveUntil(
                     context, AlgoliaSearchPage.routeName, (route) => false);
               },

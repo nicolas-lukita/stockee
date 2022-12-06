@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
+import 'package:stockee/helpers/demo_mode.dart';
 import 'api_key.dart';
 
 const String baseUrl = "https://www.alphavantage.co/query?";
@@ -13,7 +14,9 @@ class AlphaVantageApi {
 
     var url = Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo");
 
-    // var url = Uri.parse(
+    // var url = DemoMode.isDemoMode
+    // ? Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo")
+    // : Uri.parse(
     //     "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
 
     var response = await client.get(url);
@@ -31,7 +34,9 @@ class AlphaVantageApi {
     var url =
         Uri.parse("$baseUrl$apiFunction&symbol=IBM&interval=5min&apikey=demo");
 
-    // var url = Uri.parse(
+    // var url = DemoMode.isDemoMode
+    // ?Uri.parse("$baseUrl$apiFunction&symbol=IBM&interval=5min&apikey=demo")
+    // :Uri.parse(
     //     "$baseUrl$apiFunction&symbol=$symbol&interval=$interval&apikey=$alphavantageKey");
 
     var response = await client.get(url);
@@ -47,7 +52,9 @@ class AlphaVantageApi {
 
     var url = Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo");
 
-    // var url = Uri.parse(
+    // var url = DemoMode.isDemoMode
+    // ?Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo")
+    // :Uri.parse(
     //     "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
 
     var response = await client.get(url);
@@ -63,7 +70,9 @@ class AlphaVantageApi {
 
     var url = Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo");
 
-    // var url = Uri.parse(
+    // var url = DemoMode.isDemoMode
+    // ? Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo")
+    // :Uri.parse(
     //     "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
 
     var response = await client.get(url);
@@ -79,7 +88,8 @@ class AlphaVantageApi {
 
     var url = Uri.parse("$baseUrl$apiFunction&symbol=IBM&apikey=demo");
 
-    // var url = Uri.parse(
+    // var url = DemoMode.isDemoMode
+    // Uri.parse(
     //     "$baseUrl$apiFunction&symbol=$symbol&apikey=$alphavantageKey");
 
     var response = await client.get(url);
@@ -96,8 +106,11 @@ class AlphaVantageApi {
     var url = Uri.parse(
         "$baseUrl$apiFunction&tickers=AAPL&topics=technology&apikey=demo");
 
-    // var url = Uri.parse(
-    //     "$baseUrl$apiFunction&tickers=$symbol&apikey=$alphavantageKey");
+    // var url = DemoMode.isDemoMode
+    //     ? Uri.parse(
+    //         "$baseUrl$apiFunction&tickers=AAPL&topics=technology&apikey=demo")
+    //     : Uri.parse(
+    //         "$baseUrl$apiFunction&tickers=$symbol&apikey=$alphavantageKey");
 
     var response = await client.get(url);
     if (response.statusCode == 200) {

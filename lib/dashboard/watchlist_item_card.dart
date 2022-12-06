@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stockee/details_page/details_screen.dart';
 import 'package:stockee/helpers/button_functions.dart';
+import 'package:stockee/helpers/demo_mode.dart';
 import 'package:stockee/models/global_quote.dart';
 
 import '../helpers/custom_text_decorator.dart';
@@ -86,16 +87,19 @@ class _WatchlistItemCardState extends State<WatchlistItemCard> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: IconButton(
-                    onPressed: () {
-                      ButtonFunctions.followButtonFunction(
-                          widget.uid,
-                          widget.globalQuoteData.globalQuote.symbol,
-                          widget.stockName);
-                      widget.refreshHome();
-                    },
+                    disabledColor: Colors.grey,
+                    color: Colors.red,
+                    onPressed: DemoMode.isDemoMode
+                        ? null
+                        : () {
+                            ButtonFunctions.followButtonFunction(
+                                widget.uid,
+                                widget.globalQuoteData.globalQuote.symbol,
+                                widget.stockName);
+                            widget.refreshHome();
+                          },
                     icon: const Icon(
                       Icons.delete,
-                      color: Colors.red,
                     )),
               )
             ],

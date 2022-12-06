@@ -6,6 +6,8 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
+import 'package:stockee/helpers/demo_mode.dart';
+
 StockIntraday stockIntradayFromJson(String str) =>
     StockIntraday.fromJson(json.decode(str));
 
@@ -21,15 +23,20 @@ class StockIntraday extends Equatable {
   Map<String, TimeSeries15Min> timeSeries15Min;
 
   factory StockIntraday.fromJson(Map<String, dynamic> json) => StockIntraday(
-        metaData: MetaData.fromJson(json["Meta Data"]),
-        timeSeries15Min: Map.from(json["Time Series (15min)"]).map((k, v) =>
-            MapEntry<String, TimeSeries15Min>(k, TimeSeries15Min.fromJson(v))),
-      );
+      metaData: MetaData.fromJson(json["Meta Data"]),
+      timeSeries15Min: DemoMode.isDemoMode
+          ? Map.from(json["Time Series (5min)"]).map((k, v) =>
+              MapEntry<String, TimeSeries15Min>(k, TimeSeries15Min.fromJson(v)))
+          : Map.from(json["Time Series (15min)"]).map(
+              (k, v) => MapEntry<String, TimeSeries15Min>(
+                  k, TimeSeries15Min.fromJson(v)),
+            ));
 
   Map<String, dynamic> toJson() => {
         "Meta Data": metaData.toJson(),
-        "Time Series (5min)": Map.from(timeSeries15Min)
-            .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
+        DemoMode.isDemoMode ? "Time Series (5min)" : "Time Series (15min)":
+            Map.from(timeSeries15Min)
+                .map((k, v) => MapEntry<String, dynamic>(k, v.toJson())),
       };
 
   @override

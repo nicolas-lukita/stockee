@@ -58,7 +58,6 @@ class _NewsSectionState extends State<NewsSection> {
                       shrinkWrap: true,
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       itemBuilder: (ctx, index) {
-                        print(newsSentimentFeed.toString());
                         return NewsCard(
                           title: newsSentimentFeed[index].title,
                           source: newsSentimentFeed[index].source,

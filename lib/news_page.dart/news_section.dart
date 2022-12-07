@@ -52,7 +52,7 @@ class _NewsSectionState extends State<NewsSection> {
             ),
           ),
           Expanded(
-              child: isLoadingNews == 0
+              child: isLoadingNews == false
                   ? const Center(child: CircularProgressIndicator())
                   : ListView.builder(
                       shrinkWrap: true,

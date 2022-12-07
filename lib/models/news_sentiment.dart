@@ -80,7 +80,7 @@ class Feed extends Equatable {
         timePublished: json["time_published"],
         authors: List<String>.from(json["authors"].map((x) => x)),
         summary: json["summary"],
-        bannerImage: json["banner_image"],
+        bannerImage: json["banner_image"] ?? '',
         source: json["source"],
         categoryWithinSource: json["category_within_source"],
         sourceDomain: json["source_domain"],

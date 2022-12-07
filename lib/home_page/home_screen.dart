@@ -44,14 +44,35 @@ class _HomeScreenState extends State<HomeScreen> {
                 fontWeight: FontWeight.w800, fontSize: 35, letterSpacing: 0.5),
           ),
           actions: <Widget>[
-            Switch(
-                activeColor: AppColors.teal,
-                value: DemoMode.isDemoMode,
-                onChanged: (newValue) {
-                  setState(() {
-                    DemoMode.toggleDemoMode();
-                  });
-                }),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: Text(
+                    'Demo',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15,
+                        color: DemoMode.isDemoMode
+                            ? Colors.red[900]
+                            : Colors.grey),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Flexible(
+                  child: Switch(
+                      activeColor: AppColors.teal,
+                      value: DemoMode.isDemoMode,
+                      onChanged: (newValue) {
+                        setState(() {
+                          DemoMode.toggleDemoMode();
+                        });
+                      }),
+                ),
+              ],
+            ),
             IconButton(
               onPressed: () {
                 Navigator.pushNamedAndRemoveUntil(

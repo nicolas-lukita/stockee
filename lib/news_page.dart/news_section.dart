@@ -12,17 +12,25 @@ class NewsSection extends StatefulWidget {
 }
 
 class _NewsSectionState extends State<NewsSection> {
-  late Future<NewsSentiment> newsSentiment;
+  List newsSentimentFeed = [];
+  bool isLoadingNews = false;
 
-  Future<NewsSentiment> getNewsSentiment() async {
+  getNewsSentiment() async {
+    setState(() {
+      isLoadingNews = true;
+    });
     final response = await AlphaVantageApi().getNewsSentiment(widget.ticker);
-    return newsSentimentFromJson(response);
+    var newsSentiment = newsSentimentFromJson(response);
+    setState(() {
+      newsSentimentFeed = newsSentiment.feed;
+      isLoadingNews = false;
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    newsSentiment = getNewsSentiment();
+    getNewsSentiment();
   }
 
   @override
@@ -44,31 +52,24 @@ class _NewsSectionState extends State<NewsSection> {
             ),
           ),
           Expanded(
-            child: FutureBuilder(
-                future: newsSentiment,
-                builder: (context, AsyncSnapshot<NewsSentiment> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    itemBuilder: (ctx, index) {
-                      return NewsCard(
-                        title: snapshot.data!.feed[index].title,
-                        source: snapshot.data!.feed[index].source,
-                        timePublished: snapshot.data!.feed[index].timePublished,
-                        url: snapshot.data!.feed[index].url,
-                        image: snapshot.data!.feed[index].bannerImage,
-                      );
-                    },
-                    itemCount: snapshot.data!.feed.length,
-                    scrollDirection: Axis.vertical,
-                  );
-                }),
-          ),
+              child: isLoadingNews == 0
+                  ? const Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      itemBuilder: (ctx, index) {
+                        print(newsSentimentFeed.toString());
+                        return NewsCard(
+                          title: newsSentimentFeed[index].title,
+                          source: newsSentimentFeed[index].source,
+                          timePublished: newsSentimentFeed[index].timePublished,
+                          url: newsSentimentFeed[index].url,
+                          image: newsSentimentFeed[index].bannerImage,
+                        );
+                      },
+                      itemCount: newsSentimentFeed.length,
+                      scrollDirection: Axis.vertical,
+                    )),
         ]);
   }
 }

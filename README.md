@@ -156,4 +156,9 @@ Things to improve or implement to this project in the Future
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Authentication](https://github.com/nicolas-lukita/stockee/blob/main/assets/Gif/Authentication.gif)
+![Homescreen](https://github.com/nicolas-lukita/stockee/blob/main/assets/Gif/Homescreen.gif)
+![DetailScreen](https://github.com/nicolas-lukita/stockee/blob/main/assets/Gif/Details-screen.gif)
+![NewsSection](https://github.com/nicolas-lukita/stockee/blob/main/assets/Gif/News-section.gif)
+![SearchScreen](https://github.com/nicolas-lukita/stockee/blob/main/assets/Gif/Search-screen.gif)
+

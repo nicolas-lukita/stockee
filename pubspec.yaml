@@ -53,6 +53,7 @@ dependencies:
   collection: ^1.16.0
   equatable: ^2.0.5
   mockito: ^5.3.2
+  flutter_launcher_icons: ^0.11.0
 
 # dependency_overrides:
 #   firebase_core_platform_interface: 4.5.1
@@ -67,6 +68,13 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.1
+
+flutter_icons:
+  image_path: "assets/icon/icon.png"
+  adaptive_icon_background: "assets/icon/icon_background.png"
+  adaptive_icon_foreground: "assets/icon/icon_foreground.png"
+  android: true
+  ios: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -137,6 +137,10 @@ This project is using feature-based structure which seperates each project featu
         firebase_auth_methods.dart
 ```
 
+## App Navigation
+
+![NavigationFlowchart](https://github.com/nicolas-lukita/stockee/blob/main/assets/Media/Navigation%20Flowchart.jpg)
+
 ## Future Improvement
 
 Things to improve or implement to this project in the Future
